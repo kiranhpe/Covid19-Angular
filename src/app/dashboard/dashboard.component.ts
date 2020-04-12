@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
+import { Statewise, CasesTimeSeries } from 'app/layouts/modals/model';
+import { interval, Subscription } from 'rxjs';
+import { CovidService } from 'app/services/covid.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,8 +10,17 @@ import * as Chartist from 'chartist';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  country: Statewise;
+  timeSeriesStates: CasesTimeSeries[];
+  states: Statewise[];
+  isLoading = true;
 
-  constructor() { }
+  source = interval(10000);
+  subscription: Subscription;
+
+  constructor(
+  private _covid: CovidService
+  ) { }
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
       seq = 0;
@@ -66,6 +78,11 @@ export class DashboardComponent implements OnInit {
       seq2 = 0;
   };
   ngOnInit() {
+    this.loadData();
+    this.subscription = this.source.subscribe((res) => {
+      this.loadData();
+    });
+
       /* ----------==========     Daily Sales Chart initialization For Documentation    ==========---------- */
 
       const dataDailySalesChart: any = {
@@ -147,4 +164,13 @@ export class DashboardComponent implements OnInit {
       this.startAnimationForBarChart(websiteViewsChart);
   }
 
+  loadData() {
+    this._covid.getDashBoardData().subscribe((response) => {
+      this.country = response.statewise[0];
+      this.timeSeriesStates = response.cases_time_series
+      this.states =response.statewise.slice(1);
+      this.isLoading = false;
+      
+    });
+  }
 }
