@@ -1,3 +1,6 @@
 .text-danger {
     color: #f44336 !important;
 }
+.click {
+    cursor: pointer;
+}
