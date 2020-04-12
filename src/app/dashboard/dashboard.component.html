@@ -13,7 +13,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">update</i> {{country?.lastupdatedtime}}
+                            <i class="material-icons">update</i> {{country?.lastupdatedtime | date:'medium'}}
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">update</i> {{country?.lastupdatedtime}}
+                            <i class="material-icons">update</i> {{country?.lastupdatedtime | date:'medium'}}
                         </div>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">update</i> {{country?.lastupdatedtime}}
+                            <i class="material-icons">update</i> {{country?.lastupdatedtime | date:'medium'}}
                         </div>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">update</i> {{country?.lastupdatedtime}}
+                            <i class="material-icons">update</i> {{country?.lastupdatedtime | date:'medium'}}
                         </div>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
                                 <th>Confirmed</th>
                                 <th>Active</th>
                                 <th>Recovered</th>
-                                <th>Fatal</th>
+                                <th>Deaths</th>
                             </thead>
                             <tbody *ngIf="states">
                                 <tr *ngFor='let state of states'>
