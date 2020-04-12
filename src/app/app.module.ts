@@ -23,6 +23,7 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { StatesComponent } from './dashboard/states/states.component';
+import { StatsComponent } from './stats/stats.component';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { StatesComponent } from './dashboard/states/states.component';
     AppComponent,
     AdminLayoutComponent,
     StatesComponent,
+    StatsComponent,
 
   ],
   providers: [],
