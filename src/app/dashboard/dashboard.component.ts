@@ -169,8 +169,10 @@ export class DashboardComponent implements OnInit {
       this.startAnimationForBarChart(websiteViewsChart);
   }
 
-  loadData() {
-    this.isLoading = true
+  loadData(isForceRefresh?: boolean) {
+    if(isForceRefresh) {
+      this.isLoading = true
+    }
     this._covid.getDashBoardData().subscribe((response) => {
       this.country = response.statewise[0];
       this.timeSeriesStates = response.cases_time_series
