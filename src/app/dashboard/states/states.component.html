@@ -1,18 +1,24 @@
+<div id="overlay" [ngClass]="isLoading ?'load':'unload'">
+    <div class="spinner"></div>
+    <br/>
+    Loading...
+</div>
 <div class="main-content">
     <div class="container-fluid">
         <div class="card-header">
-            <h4 class="card-title text-info"><span (click)="goBack()"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>&nbsp;</span>{{state?.state}}</h4>
+            <h4 class="card-title text-info"><span (click)="goBack()"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>&nbsp;</span>{{state?.state}}
+                <span class="pull-right refresh" (click)="loadDistrictData()"><i class="fa fa-refresh" aria-hidden="true"></i></span></h4>
         </div>
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
-                    <div class="card-header card-header-danger card-header-icon">
+                    <div class="card-header card-header-danger card-header-icon ">
                         <div class="card-icon">
                             <i class="fa fa-medkit" aria-hidden="true"></i>
                         </div>
                         <p class="card-category">Confirmed</p>
                         <h3 class="card-title">{{state?.confirmed}}</h3>
-                        <h4 class="card-title danger-text">+{{state?.deltaconfirmed}}</h4>
+                        <h4 class="card-title text-danger"><i class="fa fa-caret-up" aria-hidden="true"></i> {{state?.deltaconfirmed}}</h4>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -29,7 +35,7 @@
                         </div>
                         <p class="card-category">Active</p>
                         <h3 class="card-title">{{state?.active}}</h3>
-                        <h4 class="card-title">0</h4>
+                        <h4 class="card-title text-warning"><i class="fa fa-info" aria-hidden="true"></i> 0</h4>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -46,7 +52,7 @@
                         </div>
                         <p class="card-category">Recovered</p>
                         <h3 class="card-title">{{state?.recovered}}</h3>
-                        <h4 class="card-title">+{{state?.deltarecovered}}</h4>
+                        <h4 class="card-title text-success"><i class="fa fa-caret-up" aria-hidden="true"></i> {{state?.deltarecovered}}</h4>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -63,7 +69,7 @@
                         </div>
                         <p class="card-category">Deaths</p>
                         <h3 class="card-title">{{state?.deaths}}</h3>
-                        <h4 class="card-title">+{{state?.deltadeaths}}</h4>
+                        <h4 class="card-title text-info"><i class="fa fa-caret-up" aria-hidden="true"></i> {{state?.deltadeaths}}</h4>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -89,7 +95,7 @@
                                 <tr *ngFor='let district of districts'>
                                     <td>{{district.district}}</td>
                                     <td>
-                                        <p><span class="text-danger">+[{{district.delta.confirmed}}]
+                                        <p><span class="text-danger"><i class="fa fa-caret-up" aria-hidden="true"></i> {{district.delta.confirmed}} 
                                             </span>{{district.confirmed}}</p>
                                     </td>
                                 </tr>

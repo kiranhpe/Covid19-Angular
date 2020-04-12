@@ -36,6 +36,7 @@ export class StatesComponent implements OnInit {
   }
 
   loadDistrictData(stateName: string) {
+    this.isLoading = true
     this._covid.getDistrictData().subscribe((response) => {
       this.isDataAvailable = response.find((v) => v.state === stateName)
         ? true

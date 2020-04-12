@@ -1,7 +1,18 @@
+
+<div id="overlay" [ngClass]="isLoading ?'load':'unload'">
+    <div class="spinner"></div>
+    <br/>
+    Loading...
+</div>
 <div class="main-content">
     <div class="container-fluid">
+        <!-- <ngx-spinner [fullScreen]="true" type="ball-clip-rotate-multiple" size="medium">
+            <p class="loading">Loading Awesomeness...</p>
+        </ngx-spinner> -->
         <div class="card-header">
-            <h2 class="card-title text-info">India</h2>
+            <h4 class="card-title text-info">India
+                <span class="pull-right refresh" (click)="loadData()"><i class="fa fa-refresh" aria-hidden="true"></i></span>
+            </h4>
         </div>
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -12,7 +23,8 @@
                         </div>
                         <p class="card-category">Confirmed</p>
                         <h3 class="card-title">{{country?.confirmed}}</h3>
-                        <h4 class="card-title danger-text">+{{country?.deltaconfirmed}}</h4>
+                        <h4 class="card-title text-danger"><i class="fa fa-caret-up" aria-hidden="true"></i>
+                            {{country?.deltaconfirmed}}</h4>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -29,7 +41,7 @@
                         </div>
                         <p class="card-category">Active</p>
                         <h3 class="card-title">{{country?.active}}</h3>
-                        <h4 class="card-title">0</h4>
+                        <h4 class="card-title text-warning"><i class="fa fa-info" aria-hidden="true"></i>0</h4>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -46,7 +58,7 @@
                         </div>
                         <p class="card-category">Recovered</p>
                         <h3 class="card-title">{{country?.recovered}}</h3>
-                        <h4 class="card-title">+{{country?.deltarecovered}}</h4>
+                        <h4 class="card-title text-success"><i class="fa fa-caret-up" aria-hidden="true"></i>{{country?.deltarecovered}}</h4>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -63,7 +75,7 @@
                         </div>
                         <p class="card-category">Deaths</p>
                         <h3 class="card-title">{{country?.deaths}}</h3>
-                        <h4 class="card-title">+{{country?.deltadeaths}}</h4>
+                        <h4 class="card-title text-info"><i class="fa fa-caret-up" aria-hidden="true"></i>{{country?.deltadeaths}}</h4>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -143,10 +155,10 @@
                             <tbody *ngIf="states">
                                 <tr *ngFor='let state of states' (click)="gotoState(state)" class="click">
                                     <td>{{state.state}}</td>
-                                    <td><p><span class="text-danger">+[{{state.deltaconfirmed}}] </span>{{state.confirmed}}</p> </td>
+                                    <td><p><span class="text-danger"><i class="fa fa-caret-up" aria-hidden="true"></i> {{state.deltaconfirmed}} </span>{{state.confirmed}}</p> </td>
                                     <td>{{state.active}}</td>
-                                    <td><p><span class="text-success">+[{{state.deltarecovered}}] </span>{{state.recovered}}</p></td>
-                                    <td><p><span class="text-info">+[{{state.deltadeaths}}] </span>{{state.deaths}}</p></td>
+                                    <td><p><span class="text-success"><i class="fa fa-caret-up" aria-hidden="true"></i> {{state.deltarecovered}} </span>{{state.recovered}}</p></td>
+                                    <td><p><span class="text-info"><i class="fa fa-caret-up" aria-hidden="true"></i> {{state.deltadeaths}} </span>{{state.deaths}}</p></td>
                                 </tr>
                             </tbody>
                         </table>

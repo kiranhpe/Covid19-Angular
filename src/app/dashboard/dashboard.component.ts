@@ -4,6 +4,8 @@ import { Statewise, CasesTimeSeries } from 'app/layouts/modals/model';
 import { interval, Subscription } from 'rxjs';
 import { CovidService } from 'app/services/covid.service';
 import { Router } from '@angular/router';
+// import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -21,7 +23,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
   private _covid: CovidService,
-  private router: Router
+  private router: Router,
+  // private spinner: NgxSpinnerService
   ) { }
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
@@ -167,6 +170,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadData() {
+    this.isLoading = true
     this._covid.getDashBoardData().subscribe((response) => {
       this.country = response.statewise[0];
       this.timeSeriesStates = response.cases_time_series
