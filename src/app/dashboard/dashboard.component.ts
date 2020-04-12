@@ -3,6 +3,7 @@ import * as Chartist from 'chartist';
 import { Statewise, CasesTimeSeries } from 'app/layouts/modals/model';
 import { interval, Subscription } from 'rxjs';
 import { CovidService } from 'app/services/covid.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +20,8 @@ export class DashboardComponent implements OnInit {
   subscription: Subscription;
 
   constructor(
-  private _covid: CovidService
+  private _covid: CovidService,
+  private router: Router
   ) { }
   startAnimationForLineChart(chart){
       let seq: any, delays: any, durations: any;
@@ -172,5 +174,8 @@ export class DashboardComponent implements OnInit {
       this.isLoading = false;
       
     });
+  }
+  gotoState(state: Statewise) {
+    this.router.navigateByUrl('dashboard/states/'+ state.state);
   }
 }
