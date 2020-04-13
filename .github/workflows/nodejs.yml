@@ -32,7 +32,7 @@ jobs:
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v2
       env:
-        ACCESS_TOKEN: 'b4fc1cea3d81aa66169d1e67a4d12dbe5e269ff5'
+        ACCESS_TOKEN: ${{ secrets.Automate }}
         BASE_BRANCH: master
         BRANCH: gh-pages
         FOLDER: dist
