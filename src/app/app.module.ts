@@ -25,6 +25,7 @@ import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.compon
 import { StatesComponent } from './dashboard/states/states.component';
 import { StatsComponent } from './stats/stats.component';
 import { UpdatesComponent } from './updates/updates.component';
+import { FeebbackComponent } from './feebback/feebback.component';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { UpdatesComponent } from './updates/updates.component';
     StatesComponent,
     StatsComponent,
     UpdatesComponent,
+    FeebbackComponent,
 
   ],
   providers: [],

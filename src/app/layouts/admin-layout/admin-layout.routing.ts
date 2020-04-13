@@ -11,6 +11,7 @@ import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { StatesComponent } from 'app/dashboard/states/states.component';
 import { StatsComponent } from 'app/stats/stats.component';
 import { UpdatesComponent } from 'app/updates/updates.component';
+import { FeebbackComponent } from 'app/feebback/feebback.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -59,7 +60,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard/states/:state',      component: StatesComponent },
     { path: 'stats', component: StatsComponent},
     { path: 'updates',   component: UpdatesComponent },
-    // { path: 'table-list',     component: TableListComponent },
+    { path: 'feedback',     component: FeebbackComponent },
     // { path: 'typography',     component: TypographyComponent },
     // { path: 'icons',          component: IconsComponent },
     // { path: 'maps',           component: MapsComponent },
