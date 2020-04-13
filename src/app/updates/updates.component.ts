@@ -12,11 +12,12 @@ export class UpdatesComponent implements OnInit {
   updates: Update[];
   isLoading = true;
 
-  source = interval(10000);
+  source = interval(1000 * 60 * 10);
   subscription: Subscription;
   constructor(private _covid: CovidService) {}
 
   ngOnInit(): void {
+    this.loadUpdates();
     this.subscription = this.source.subscribe((res) => {
       this.loadUpdates();
     });

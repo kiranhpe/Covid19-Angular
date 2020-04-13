@@ -18,7 +18,7 @@ export class DashboardComponent implements OnInit {
   states: Statewise[];
   isLoading = true;
 
-  source = interval(10000);
+  source = interval(1000 * 60 * 10);
   subscription: Subscription;
 
   constructor(

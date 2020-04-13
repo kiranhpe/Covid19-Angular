@@ -15,7 +15,7 @@ export class StatesComponent implements OnInit {
   isLoading = true;
   
   isDataAvailable = true;
-  source = interval(10000);
+  source = interval(1000 * 60 * 10);
   subscription: Subscription;
 
   constructor(
