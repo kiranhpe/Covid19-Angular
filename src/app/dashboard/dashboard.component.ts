@@ -5,7 +5,7 @@ import { interval, Subscription } from 'rxjs';
 import { CovidService } from 'app/services/covid.service';
 import { Router } from '@angular/router';
 // import { NgxSpinnerService } from 'ngx-spinner';
-
+// this is test commit
 
 @Component({
   selector: 'app-dashboard',
