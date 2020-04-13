@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CovidService } from 'app/services/covid.service';
 import { Update } from 'app/layouts/modals/model';
 import { Subscription, interval } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-updates',
@@ -14,7 +15,8 @@ export class UpdatesComponent implements OnInit {
 
   source = interval(1000 * 60 * 10);
   subscription: Subscription;
-  constructor(private _covid: CovidService) {}
+  constructor(private _covid: CovidService,
+    private route: Router) {}
 
   ngOnInit(): void {
     this.loadUpdates();
@@ -46,5 +48,9 @@ export class UpdatesComponent implements OnInit {
       hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
 
     return date;
+  }
+
+  goBack() {
+    this.route.navigate(['/dashboard'])
   }
 }
