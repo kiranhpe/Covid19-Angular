@@ -58,4 +58,9 @@ export interface CasesTimeSeries {
       newCases?: number;
       growthFactor: number;
   }
+
+  export interface Update {
+    update: string;
+    timestamp: number;
+  }
   

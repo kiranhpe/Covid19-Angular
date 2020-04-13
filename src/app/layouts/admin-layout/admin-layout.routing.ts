@@ -10,6 +10,7 @@ import { NotificationsComponent } from '../../notifications/notifications.compon
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
 import { StatesComponent } from 'app/dashboard/states/states.component';
 import { StatsComponent } from 'app/stats/stats.component';
+import { UpdatesComponent } from 'app/updates/updates.component';
 
 export const AdminLayoutRoutes: Routes = [
     // {
@@ -56,8 +57,8 @@ export const AdminLayoutRoutes: Routes = [
     // }
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'dashboard/states/:state',      component: StatesComponent },
-    { path: 'stats', component: StatsComponent}
-    // { path: 'user-profile',   component: UserProfileComponent },
+    { path: 'stats', component: StatsComponent},
+    { path: 'updates',   component: UpdatesComponent },
     // { path: 'table-list',     component: TableListComponent },
     // { path: 'typography',     component: TypographyComponent },
     // { path: 'icons',          component: IconsComponent },

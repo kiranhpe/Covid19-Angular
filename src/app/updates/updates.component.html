@@ -1,0 +1,15 @@
+<div id="overlay" [ngClass]="isLoading ?'load':'unload'">
+    <div class="spinner"></div>
+    <br/>
+    Loading...
+</div>
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card" *ngFor="let update of updates?.slice().reverse();index as i">
+            <div class="card-header text-info">
+                <h3 class="card-title"><span><i class="fa fa-info" aria-hidden="true"></i>   {{frameTimeStamp(update.timestamp) | date:'medium'}}</span></h3>
+                <h4 class="card-title">{{update.update}}</h4>
+            </div>
+        </div>
+    </div>
+</div>
