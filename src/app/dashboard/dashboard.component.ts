@@ -74,11 +74,11 @@ export class DashboardComponent implements OnInit {
             return Number(v.totaldeceased)
           });
         }
-        this.loadChartData(chart.containerId, series)
+        this.loadChartData(chart.containerId, series, false)
       });
     });
   }
-  loadChartData(containerId: string, seriesData: number[]) {
+  loadChartData(containerId: string, seriesData: number[], isDaily:boolean) {
     const change = seriesData[seriesData.length - 1] - seriesData[seriesData.length - 2];
 
     if(containerId === '#confirmedCases') {
@@ -119,13 +119,13 @@ export class DashboardComponent implements OnInit {
       chartPadding: { top: 0, right: 0, bottom: 0, left: 0 },
     };
 
-    const confirmedCasesChart = new Chartist.Line(
+    const Chart = new Chartist.Line(
       containerId,
       dataSeries,
       options
     );
 
-    this.startAnimationForLineChart(confirmedCasesChart);
+    this.startAnimationForLineChart(Chart);
   }
   gotoState(state: Statewise) {
     this.router.navigateByUrl('dashboard/states/' + state.state);

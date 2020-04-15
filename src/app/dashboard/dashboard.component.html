@@ -129,6 +129,48 @@
                 </div>
             </div>
         </div>
+        <div class="row" *ngIf="false">
+            <!-- Confirmed cases graph -->
+            <div class="col-md-4">
+                <div class="card card-chart">
+                    <div class="card-header card-header-danger">
+                        <div class="ct-chart" id="confirmedCases"></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Confirmed</h4>
+                        <p class="card-category">
+                            <span class="text-danger">
+                                <i class="fa fa-long-arrow-up"></i> {{changeConfirmed}} </span> Todays change</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Recoved cases graph-->
+            <div class="col-md-4">
+                <div class="card card-chart">
+                    <div class="card-header card-header-success">
+                        <div class="ct-chart" id="recoveredCases"></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Recovered</h4>
+                        <p class="card-category"><span class="text-success">
+                                <i class="fa fa-long-arrow-up"></i> {{changeRecovered}} </span> Todays change</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Death cases graph-->
+            <div class="col-md-4">
+                <div class="card card-chart">
+                    <div class="card-header card-header-info">
+                        <div class="ct-chart" id="deathCases"></div>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Deaths</h4>
+                        <p class="card-category"><span class="text-info">
+                            <i class="fa fa-long-arrow-up"></i> {{changeDeath}} </span> Todays change</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
                 <div class="card">
