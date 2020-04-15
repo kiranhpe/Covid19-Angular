@@ -16,24 +16,26 @@ export class DashboardComponent implements OnInit {
   timeSeriesStates: CasesTimeSeries[];
   states: Statewise[];
   isLoading = true;
+  isDaily = false;
+  isUniform = false;
   charts = [
     {
       containerId: '#confirmedCases',
-      ration:0
+      ration: 0,
     },
     {
       containerId: '#recoveredCases',
-      ration:0
+      ration: 0,
     },
     {
       containerId: '#deathCases',
-      ration:0
+      ration: 0,
     },
   ];
 
-  changeConfirmed=0;
-  changeRecovered=0;
-  changeDeath=0;
+  changeConfirmed = 0;
+  changeRecovered = 0;
+  changeDeath = 0;
 
   source = interval(1000 * 60 * 10);
   subscription: Subscription;
@@ -59,29 +61,79 @@ export class DashboardComponent implements OnInit {
       this.timeSeriesStates = response.cases_time_series;
       this.states = response.statewise.slice(1);
       this.isLoading = false;
-      this.charts.forEach((chart) => {
-        let series: number[];
-        if(chart.containerId === '#confirmedCases') {
-          series = this.timeSeriesStates.map(v => {
-            return Number(v.totalconfirmed)
-          });
-        } else if (chart.containerId === '#recoveredCases') {
-          series = this.timeSeriesStates.map(v => {
-            return Number(v.totalrecovered)
-          });
-        } else if (chart.containerId === '#deathCases') {
-          series = this.timeSeriesStates.map(v => {
-            return Number(v.totaldeceased)
-          });
-        }
-        this.loadChartData(chart.containerId, series, false)
-      });
+      this.loadCharts();
     });
   }
-  loadChartData(containerId: string, seriesData: number[], isDaily:boolean) {
-    const change = seriesData[seriesData.length - 1] - seriesData[seriesData.length - 2];
 
-    if(containerId === '#confirmedCases') {
+  loadCharts() {
+    this.charts.forEach((chart) => {
+      let series: number[];
+
+      if (!this.isDaily) {
+        if (chart.containerId === '#confirmedCases') {
+          series = this.timeSeriesStates.map((v) => {
+            return Number(v.totalconfirmed);
+          });
+        } else if (chart.containerId === '#recoveredCases') {
+          series = this.timeSeriesStates.map((v) => {
+            return Number(v.totalrecovered);
+          });
+        } else if (chart.containerId === '#deathCases') {
+          series = this.timeSeriesStates.map((v) => {
+            return Number(v.totaldeceased);
+          });
+        }
+        this.loadChartData(
+          chart.containerId,
+          series,
+          false,
+          14,
+          this.isUniform
+        );
+      } else {
+        if (chart.containerId === '#confirmedCases') {
+          series = this.timeSeriesStates.map((v) => {
+            return Number(v.dailyconfirmed);
+          });
+        } else if (chart.containerId === '#recoveredCases') {
+          series = this.timeSeriesStates.map((v) => {
+            return Number(v.dailyrecovered);
+          });
+        } else if (chart.containerId === '#deathCases') {
+          series = this.timeSeriesStates.map((v) => {
+            return Number(v.dailydeceased);
+          });
+        }
+        this.loadChartData(
+          chart.containerId,
+          series,
+          this.isDaily,
+          14,
+          this.isUniform
+        );
+      }
+    });
+  }
+  loadChartData(
+    containerId: string,
+    seriesData: number[],
+    isDaily: boolean,
+    lastDays?: number,
+    isUniform?: boolean
+  ) {
+    const change =
+      seriesData[seriesData.length - 1] - seriesData[seriesData.length - 2];
+
+    const high: number = isUniform
+      ? Number(
+          this.timeSeriesStates[this.timeSeriesStates.length - 1].totalconfirmed
+        )
+      : seriesData[seriesData.length - 1];
+
+    if (isDaily) {
+      seriesData = seriesData.splice(seriesData.length - lastDays);
+    }
+    if (containerId === '#confirmedCases') {
       this.changeConfirmed = change;
     } else if (containerId === '#recoveredCases') {
       this.changeRecovered = change;
@@ -89,9 +141,8 @@ export class DashboardComponent implements OnInit {
       this.changeDeath = change;
     }
     const dataSeries: any = {
-      series: [
-        seriesData
-      ],
+      labels: [],
+      series: [seriesData],
     };
 
     const options: any = {
@@ -103,37 +154,58 @@ export class DashboardComponent implements OnInit {
       axisX: {
         showLabel: false,
         showGrid: true,
+        scaleMinSpace: 20,
       },
       axisY: {
         showLabel: true,
         showGrid: false,
-        labelInterpolationFnc: function(value) {
-
-          if(value < 1000) {
+        labelInterpolationFnc: function (value) {
+          if (value < 1000) {
             return value;
           } else {
-            return (value / 1000) + 'k';
+            return value / 1000 + 'k';
           }
-        }
+        },
+        high: high,
       },
       chartPadding: { top: 0, right: 0, bottom: 0, left: 0 },
     };
 
-    const Chart = new Chartist.Line(
-      containerId,
-      dataSeries,
-      options
-    );
+    if (isDaily) {
+      const Chart = new Chartist.Bar(containerId, dataSeries, options);
 
-    this.startAnimationForLineChart(Chart);
+      this.startAnimationForBarChart(Chart);
+    } else {
+      const Chart = new Chartist.Line(containerId, dataSeries, options);
+
+      this.startAnimationForLineChart(Chart);
+    }
   }
   gotoState(state: Statewise) {
     this.router.navigateByUrl('dashboard/states/' + state.state);
   }
 
+  onDailyChange(e) {
+    if (e.checked) {
+      this.isDaily = true;
+      this.loadCharts();
+    } else {
+      this.isDaily = false;
+      this.loadCharts();
+    }
+  }
+  onUniformChange(e: any) {
+    if (e.checked) {
+      this.isUniform = true;
+      this.loadCharts();
+    } else {
+      this.isUniform = false;
+      this.loadCharts();
+    }
+  }
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.loadData()
+    this.loadData();
   }
 
   startAnimationForLineChart(chart) {
