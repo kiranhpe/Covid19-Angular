@@ -22,12 +22,6 @@ import {
   AgmCoreModule
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { StatesComponent } from './dashboard/states/states.component';
-import { StatsComponent } from './stats/stats.component';
-import { UpdatesComponent } from './updates/updates.component';
-import { FeebbackComponent } from './feebback/feebback.component';
-import { HighchartsChartComponent } from 'highcharts-angular';
-import { LineBarChartComponent } from './shared/component/line-bar-chart/line-bar-chart.component';
 
 @NgModule({
   imports: [
@@ -46,12 +40,7 @@ import { LineBarChartComponent } from './shared/component/line-bar-chart/line-ba
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    StatesComponent,
-    StatsComponent,
-    UpdatesComponent,
-    FeebbackComponent,
-    HighchartsChartComponent,
-    LineBarChartComponent
+
   ],
   providers: [],
   bootstrap: [AppComponent]

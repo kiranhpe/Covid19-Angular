@@ -20,6 +20,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { CovidService } from 'app/services/covid.service';
+
+import { HighchartsChartComponent } from 'highcharts-angular';
+import { LineBarChartComponent } from '../../shared/component/line-bar-chart/line-bar-chart.component';
+import { FeebbackComponent } from 'app/feebback/feebback.component';
+import { UpdatesComponent } from 'app/updates/updates.component';
+import { StatsComponent } from 'app/stats/stats.component';
+import { StatesComponent } from 'app/dashboard/states/states.component';
+
 // import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
@@ -46,7 +54,12 @@ import { CovidService } from 'app/services/covid.service';
     MapsComponent,
     NotificationsComponent,
     UpgradeComponent,
-    // NgxSpinnerModule,
+    StatesComponent,
+    StatsComponent,
+    UpdatesComponent,
+    FeebbackComponent,
+    HighchartsChartComponent,
+    LineBarChartComponent
   ],
   providers: [CovidService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
