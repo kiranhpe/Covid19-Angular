@@ -9,6 +9,7 @@ import { LineBarChartOptions } from 'app/shared/line-bar-chart.options';
 })
 export class LineBarChartComponent implements OnInit, OnChanges {
   @Input() series: any[];
+  @Input() xAxisCatogories: string[];
   @Input() xMinMax: [number, number];
   @Input() yMinMax: [number, number];
   @Input() seriesType: string;
@@ -33,11 +34,11 @@ export class LineBarChartComponent implements OnInit, OnChanges {
       ...this.chartOptions,
       yAxis: {
         ...this.chartOptions.yAxis,
-        min: 0,
-        max: null,
+        min: this.yMinMax ? this.yMinMax[0] : null,
+        max: this.yMinMax ? this.yMinMax[1] : null,
       },
       xAxis: {
-        categories: [],
+        categories: this.xAxisCatogories ? this.xAxisCatogories : null,
       },
       series: this.series
         ? this.series

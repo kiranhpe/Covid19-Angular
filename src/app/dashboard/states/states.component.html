@@ -1,8 +1,4 @@
-<div id="overlay" [ngClass]="isLoading ?'load':'unload'">
-    <div class="spinner"></div>
-    <br/>
-    Loading....
-</div>
+<app-spinner [isLoading]="isLoading"></app-spinner>
 <div class="main-content">
     <div class="container-fluid">
         <div class="card-header">

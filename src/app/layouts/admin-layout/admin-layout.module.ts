@@ -27,6 +27,7 @@ import { FeebbackComponent } from 'app/feebback/feebback.component';
 import { UpdatesComponent } from 'app/updates/updates.component';
 import { StatsComponent } from 'app/stats/stats.component';
 import { StatesComponent } from 'app/dashboard/states/states.component';
+import { SpinnerComponent } from 'app/spinner/spinner.component';
 
 // import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -59,7 +60,8 @@ import { StatesComponent } from 'app/dashboard/states/states.component';
     UpdatesComponent,
     FeebbackComponent,
     HighchartsChartComponent,
-    LineBarChartComponent
+    LineBarChartComponent,
+    SpinnerComponent
   ],
   providers: [CovidService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

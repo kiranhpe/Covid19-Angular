@@ -1,8 +1,4 @@
-<div id="overlay" [ngClass]="isLoading ?'load':'unload'">
-    <div class="spinner"></div>
-    <br />
-    Loading...
-</div>
+<app-spinner [isLoading]="isLoading"></app-spinner>
 <div class="main-content">
     <div class="container-fluid">
         <!-- <ngx-spinner [fullScreen]="true" type="ball-clip-rotate-multiple" size="medium">
@@ -98,7 +94,11 @@
             <div class="col-md-4">
                 <div class="card card-chart">
                     <div class="card-header card-header-danger">
-                        <app-line-bar-chart></app-line-bar-chart>
+                        <app-line-bar-chart 
+                        [series]="this.seriesValues?.confirmed.series"
+                        [xAxisCatogories]="seriesValues?.confirmed.xAxisCatogories"
+                        [yMinMax]="yMinMax">
+                    </app-line-bar-chart>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">Confirmed</h4>
@@ -112,7 +112,11 @@
             <div class="col-md-4">
                 <div class="card card-chart">
                     <div class="card-header card-header-success">
-                        <app-line-bar-chart></app-line-bar-chart>
+                        <app-line-bar-chart 
+                        [series]="this.seriesValues?.recovered.series"
+                        [xAxisCatogories]="seriesValues?.recovered.xAxisCatogories"
+                        [yMinMax]="yMinMax">
+                    </app-line-bar-chart>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">Recovered</h4>
@@ -125,49 +129,11 @@
             <div class="col-md-4">
                 <div class="card card-chart">
                     <div class="card-header card-header-info">
-                        <app-line-bar-chart></app-line-bar-chart>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Deaths</h4>
-                        <p class="card-category"><span class="text-info">
-                            <i class="fa fa-long-arrow-up"></i> {{changeDeath}} </span> Todays change</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <!-- Confirmed cases graph -->
-            <div class="col-md-4">
-                <div class="card card-chart">
-                    <div class="card-header card-header-danger">
-                        <div class="ct-chart" id="confirmedCases"></div>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Confirmed</h4>
-                        <p class="card-category">
-                            <span class="text-danger">
-                                <i class="fa fa-long-arrow-up"></i> {{changeConfirmed}} </span> Todays change</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Recoved cases graph-->
-            <div class="col-md-4">
-                <div class="card card-chart">
-                    <div class="card-header card-header-success">
-                        <div class="ct-chart" id="recoveredCases"></div>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Recovered</h4>
-                        <p class="card-category"><span class="text-success">
-                                <i class="fa fa-long-arrow-up"></i> {{changeRecovered}} </span> Todays change</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Death cases graph-->
-            <div class="col-md-4">
-                <div class="card card-chart">
-                    <div class="card-header card-header-info">
-                        <div class="ct-chart" id="deathCases"></div>
+                        <app-line-bar-chart 
+                        [series]="this.seriesValues?.death.series"
+                        [xAxisCatogories]="seriesValues?.death.xAxisCatogories"
+                        [yMinMax]="yMinMax">
+                    </app-line-bar-chart>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">Deaths</h4>

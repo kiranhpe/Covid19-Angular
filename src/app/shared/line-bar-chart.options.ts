@@ -7,6 +7,11 @@ export class LineBarChartOptions {
       backgroundColor: 'rgba(0,0,0,0)',
       type: 'spline',
     },
+    plotOptions: {
+      series: {
+        lineWidth: 4
+      }
+    },
     title: {
       text: '',
     },
@@ -17,15 +22,25 @@ export class LineBarChartOptions {
       text: '',
     },
     xAxis: {
+      type: 'category',
       lineWidth: 0,
       minorGridLineWidth: 0,
+      labels: {
+        style: {
+          color: 'white'
+        }
+      }
     },
     yAxis: {
+      
       title: {
         text: null,
       },
       labels: {
         enabled: true,
+        style: {
+          color: 'white'
+        }
       },
       grid: {
         enabled: false,
