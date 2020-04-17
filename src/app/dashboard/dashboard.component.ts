@@ -1,11 +1,16 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import * as Chartist from 'chartist';
-import { Statewise, CasesTimeSeries } from 'app/layouts/modals/model';
+import {
+  Statewise,
+  CasesTimeSeries,
+  DistrictData,
+  StatesDaily,
+  Status,
+  StatesDailyStats,
+  StatesDailyGraph,
+} from 'app/layouts/modals/model';
 import { interval, Subscription } from 'rxjs';
 import { CovidService } from 'app/services/covid.service';
-import { Router } from '@angular/router';
-import { SeriesOptionsType } from 'highcharts';
-// import { NgxSpinnerService } from 'ngx-spinner';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,9 +18,14 @@ import { SeriesOptionsType } from 'highcharts';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  country: Statewise;
+  covid: Statewise;
   timeSeriesStates: CasesTimeSeries[];
+  stateName: string;
   states: Statewise[];
+  districts: DistrictData[];
+  statesDaily: StatesDailyStats;
+  statesGraphType = 'line';
+  filteredState: StatesDailyGraph[];
   isLoading = true;
   isDaily = false;
   isUniform = false;
@@ -32,10 +42,14 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private _covid: CovidService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe((params) => {
+      this.stateName = params['state'];
+    });
     this.loadData();
     this.subscription = this.source.subscribe((res) => {
       this.loadData();
@@ -46,33 +60,63 @@ export class DashboardComponent implements OnInit {
     if (isForceRefresh) {
       this.isLoading = true;
     }
-    this._covid.getDashBoardData().subscribe((response) => {
-      this.country = response.statewise[0];
-      this.timeSeriesStates = response.cases_time_series;
-      this.states = response.statewise.slice(1);
-      this.isLoading = false;
-      this.loadCharts();
-    });
+    if (this.stateName) {
+      this._covid.getDashBoardData().subscribe((response) => {
+        this.covid = response.statewise.find((v) => v.state === this.stateName);
+        this.isLoading = false;
+      });
+      this._covid.getDistrictData().subscribe((response) => {
+        this.districts = response.find(
+          (v) => v.state === this.stateName
+        ).districtData;
+        this.isLoading = false;
+      });
+      this._covid.getStatesDaily().subscribe((response) => {
+        this.statesDaily = response;
+        this.filteredState = this.statesDaily.states_daily.map((v) => {
+          return {
+            date: v.date,
+            count: v[this.covid.statecode.toLowerCase()],
+            status: v.status,
+          };
+        });
+        this.prepareStateCharts();
+      });
+    } else {
+      this._covid.getDashBoardData().subscribe((response) => {
+        this.covid = response.statewise[0];
+        this.timeSeriesStates = response.cases_time_series;
+        this.states = response.statewise.slice(1);
+        this.isLoading = false;
+        this.prepareCountryCharts();
+      });
+    }
   }
 
-  loadCharts() {
-    this.changeConfirmed = Number(
-      this.timeSeriesStates[this.timeSeriesStates.length - 1].totalconfirmed
-    ) - Number(
-      this.timeSeriesStates[this.timeSeriesStates.length - 2].totalconfirmed
-    );
+  prepareCountryCharts() {
+    this.changeConfirmed =
+      Number(
+        this.timeSeriesStates[this.timeSeriesStates.length - 1].totalconfirmed
+      ) -
+      Number(
+        this.timeSeriesStates[this.timeSeriesStates.length - 2].totalconfirmed
+      );
 
-    this.changeRecovered = Number(
-      this.timeSeriesStates[this.timeSeriesStates.length - 1].totalrecovered
-    ) - Number(
-      this.timeSeriesStates[this.timeSeriesStates.length - 2].totalrecovered
-    );
+    this.changeRecovered =
+      Number(
+        this.timeSeriesStates[this.timeSeriesStates.length - 1].totalrecovered
+      ) -
+      Number(
+        this.timeSeriesStates[this.timeSeriesStates.length - 2].totalrecovered
+      );
 
-    this.changeDeath = Number(
-      this.timeSeriesStates[this.timeSeriesStates.length - 1].totaldeceased
-    ) - Number(
-      this.timeSeriesStates[this.timeSeriesStates.length - 2].totaldeceased
-    );
+    this.changeDeath =
+      Number(
+        this.timeSeriesStates[this.timeSeriesStates.length - 1].totaldeceased
+      ) -
+      Number(
+        this.timeSeriesStates[this.timeSeriesStates.length - 2].totaldeceased
+      );
     if (!this.isDaily) {
       this.seriesValues = {
         confirmed: {
@@ -84,7 +128,7 @@ export class DashboardComponent implements OnInit {
             name: 'Confirmed',
           },
           xAxisCatogories: this.timeSeriesStates.map((v) => {
-            return v.date.substring(1, 6);
+            return v.date.substring(0, 6).replace(' ','').replace('-','');
           }),
         },
         recovered: {
@@ -96,7 +140,7 @@ export class DashboardComponent implements OnInit {
             name: 'Recovered',
           },
           xAxisCatogories: this.timeSeriesStates.map((v) => {
-            return v.date.substring(1, 6);
+            return v.date.substring(0, 6).replace(' ','').replace('-','');
           }),
         },
         death: {
@@ -108,7 +152,7 @@ export class DashboardComponent implements OnInit {
             name: 'Death',
           },
           xAxisCatogories: this.timeSeriesStates.map((v) => {
-            return v.date.substring(1, 6);
+            return v.date.substring(0, 6).replace(' ','').replace('-','');
           }),
         },
       };
@@ -134,7 +178,7 @@ export class DashboardComponent implements OnInit {
           xAxisCatogories: this.timeSeriesStates
             .slice(this.timeSeriesStates.length - 14)
             .map((v) => {
-              return v.date.substring(1, 6);
+              return v.date.substring(0, 6).replace(' ','').replace('-','');
             }),
         },
         recovered: {
@@ -150,7 +194,7 @@ export class DashboardComponent implements OnInit {
           xAxisCatogories: this.timeSeriesStates
             .slice(this.timeSeriesStates.length - 14)
             .map((v) => {
-              return v.date.substring(1, 6);
+              return v.date.substring(0, 6).replace(' ','').replace('-','');
             }),
         },
         death: {
@@ -166,7 +210,130 @@ export class DashboardComponent implements OnInit {
           xAxisCatogories: this.timeSeriesStates
             .slice(this.timeSeriesStates.length - 14)
             .map((v) => {
-              return v.date.substring(1, 6);
+              return v.date.substring(0, 6).replace(' ','').replace('-','');
+            }),
+        },
+      };
+
+      if (this.isUniform) {
+        this.yMinMax[1] = Number(
+          this.timeSeriesStates[this.timeSeriesStates.length - 1].dailyconfirmed
+        );
+      } else {
+        this.yMinMax[1] = null;
+      }
+    }
+  }
+
+  prepareStateCharts() {
+    const confirmedCases = this.filteredState.filter((v) => {
+      return v.status === Status.Confirmed;
+    });
+    const recoveredCases = this.filteredState.filter((v) => {
+      return v.status === Status.Recovered;
+    });
+    const deathCases = this.filteredState.filter((v) => {
+      return v.status === Status.Deceased;
+    });
+
+    this.changeConfirmed =
+      Number(confirmedCases[confirmedCases.length - 1].count) -
+      Number(confirmedCases[confirmedCases.length - 2].count);
+
+    this.changeRecovered =
+      Number(recoveredCases[recoveredCases.length - 1].count) -
+      Number(recoveredCases[recoveredCases.length - 2].count);
+
+    this.changeDeath =
+      Number(deathCases[deathCases.length - 1].count) -
+      Number(deathCases[deathCases.length - 2].count);
+    if (!this.isDaily) {
+      this.seriesValues = {
+        confirmed: {
+          series: {
+            type: this.statesGraphType,
+            data: confirmedCases.map((v) => {
+              return Number(v.count);
+            }),
+            name: 'Confirmed',
+          },
+          xAxisCatogories: confirmedCases.map((v) => {
+            return v.date.substring(0, 6).replace(' ','').replace('-','');
+          }),
+        },
+        recovered: {
+          series: {
+            type: this.statesGraphType,
+            data: recoveredCases.map((v) => {
+              return Number(v.count);
+            }),
+            name: 'Recovered',
+          },
+          xAxisCatogories: recoveredCases.map((v) => {
+            return v.date.substring(0, 6).replace(' ','').replace('-','');
+          }),
+        },
+        death: {
+          series: {
+            type: this.statesGraphType,
+            data: deathCases.map((v) => {
+              return Number(v.count);
+            }),
+            name: 'Death',
+          },
+          xAxisCatogories: deathCases.map((v) => {
+            return v.date.substring(0, 6).replace(' ','').replace('-','');
+          }),
+        },
+      };
+    } else {
+      this.seriesValues = this.seriesValues = {
+        confirmed: {
+          series: {
+            type: 'column',
+            data: this.timeSeriesStates
+              .slice(this.timeSeriesStates.length - 14)
+              .map((v) => {
+                return Number(v.dailyconfirmed);
+              }),
+            name: 'Confirmed',
+          },
+          xAxisCatogories: this.timeSeriesStates
+            .slice(this.timeSeriesStates.length - 14)
+            .map((v) => {
+              return v.date.substring(0, 6).replace(' ','').replace('-','');
+            }),
+        },
+        recovered: {
+          series: {
+            type: 'column',
+            data: this.timeSeriesStates
+              .slice(this.timeSeriesStates.length - 14)
+              .map((v) => {
+                return Number(v.dailyrecovered);
+              }),
+            name: 'Recovered',
+          },
+          xAxisCatogories: this.timeSeriesStates
+            .slice(this.timeSeriesStates.length - 14)
+            .map((v) => {
+              return v.date.substring(0, 6).replace(' ','').replace('-','');
+            }),
+        },
+        death: {
+          series: {
+            type: 'column',
+            data: this.timeSeriesStates
+              .slice(this.timeSeriesStates.length - 14)
+              .map((v) => {
+                return Number(v.dailydeceased);
+              }),
+            name: 'Death',
+          },
+          xAxisCatogories: this.timeSeriesStates
+            .slice(this.timeSeriesStates.length - 14)
+            .map((v) => {
+              return v.date.substring(0, 6).replace(' ','').replace('-','');
             }),
         },
       };
@@ -181,29 +348,41 @@ export class DashboardComponent implements OnInit {
     }
   }
   gotoState(state: Statewise) {
-    this.router.navigateByUrl('dashboard/states/' + state.state);
+    this.router.navigateByUrl('dashboard/' + state.state);
   }
 
   onDailyChange(e) {
     if (e.checked) {
       this.isDaily = true;
-      this.loadCharts();
+      this.loadData();
     } else {
       this.isDaily = false;
-      this.loadCharts();
+      this.loadData();
     }
   }
   onUniformChange(e: any) {
     if (e.checked) {
       this.isUniform = true;
-      this.loadCharts();
+      this.loadData();
     } else {
       this.isUniform = false;
-      this.loadCharts();
+      this.loadData();
+    }
+  }
+  onGraphChange(e: any) {
+    if (e.checked) {
+      this.statesGraphType = 'column';
+      this.loadData();
+    } else {
+      this.statesGraphType = 'line';
+      this.loadData();
     }
   }
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.loadData();
+  }
+  goBack() {
+    this.router.navigate(['/dashboard']);
   }
 }
