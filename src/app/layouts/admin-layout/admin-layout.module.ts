@@ -21,7 +21,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { CovidService } from 'app/services/covid.service';
 
-import { HighchartsChartComponent } from 'highcharts-angular';
+import { HighchartsChartComponent, HighchartsChartModule } from 'highcharts-angular';
 import { LineBarChartComponent } from '../../shared/component/line-bar-chart/line-bar-chart.component';
 import { FeebbackComponent } from 'app/feebback/feebback.component';
 import { UpdatesComponent } from 'app/updates/updates.component';
@@ -45,6 +45,7 @@ import { SpinnerComponent } from 'app/spinner/spinner.component';
     MatTooltipModule,
     HttpClientModule,
     MatSlideToggleModule,
+    HighchartsChartModule
   ],
   declarations: [
     DashboardComponent,
@@ -59,7 +60,6 @@ import { SpinnerComponent } from 'app/spinner/spinner.component';
     StatsComponent,
     UpdatesComponent,
     FeebbackComponent,
-    HighchartsChartComponent,
     LineBarChartComponent,
     SpinnerComponent
   ],
