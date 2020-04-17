@@ -27,9 +27,6 @@ export class LineBarChartComponent implements OnInit, OnChanges {
 
   createChart() {
     let data = [];
-    for (let i = 0; i < 10; i++) {
-      data.push(i);
-    }
     this.chartOptions = {
       ...this.chartOptions,
       yAxis: {
@@ -45,7 +42,7 @@ export class LineBarChartComponent implements OnInit, OnChanges {
         : [
             {
               type: 'column',
-              data: [1, 2, 4, 7, 2],
+              data: [],
               color: 'white',
             },
           ],

@@ -8,7 +8,6 @@ import { IconsComponent } from '../../icons/icons.component';
 import { MapsComponent } from '../../maps/maps.component';
 import { NotificationsComponent } from '../../notifications/notifications.component';
 import { UpgradeComponent } from '../../upgrade/upgrade.component';
-import { StatesComponent } from 'app/dashboard/states/states.component';
 import { StatsComponent } from 'app/stats/stats.component';
 import { UpdatesComponent } from 'app/updates/updates.component';
 import { FeebbackComponent } from 'app/feebback/feebback.component';
@@ -57,7 +56,7 @@ export const AdminLayoutRoutes: Routes = [
     //     }]
     // }
     { path: 'dashboard',      component: DashboardComponent },
-    { path: 'dashboard/states/:state',      component: StatesComponent },
+    { path: 'dashboard/:state',      component: DashboardComponent },
     { path: 'stats', component: StatsComponent},
     { path: 'updates',   component: UpdatesComponent },
     { path: 'feedback',     component: FeebbackComponent },

@@ -9,16 +9,16 @@ export interface CasesTimeSeries {
   }
   
   export interface Statewise {
-    active: string;
-    confirmed: string;
-    deaths: string;
-    deltaconfirmed: string;
-    deltadeaths: string;
-    deltarecovered: string;
-    lastupdatedtime: string;
-    recovered: string;
-    state: string;
-    statecode: string;
+    active?: string;
+    confirmed?: string;
+    deaths?: string;
+    deltaconfirmed?: string;
+    deltadeaths?: string;
+    deltarecovered?: string;
+    lastupdatedtime?: string;
+    recovered?: string;
+    state?: string;
+    statecode?: string;
   }
   
   export interface Tested {
@@ -63,4 +63,59 @@ export interface CasesTimeSeries {
     update: string;
     timestamp: number;
   }
-  
+export interface StatesDaily {
+    an:     string;
+    ap:     string;
+    ar:     string;
+    as:     string;
+    br:     string;
+    ch:     string;
+    ct:     string;
+    date:   string;
+    dd:     string;
+    dl:     string;
+    dn:     string;
+    ga:     string;
+    gj:     string;
+    hp:     string;
+    hr:     string;
+    jh:     string;
+    jk:     string;
+    ka:     string;
+    kl:     string;
+    la:     string;
+    ld:     string;
+    mh:     string;
+    ml:     string;
+    mn:     string;
+    mp:     string;
+    mz:     string;
+    nl:     string;
+    or:     string;
+    pb:     string;
+    py:     string;
+    rj:     string;
+    sk:     string;
+    status: Status;
+    tg:     string;
+    tn:     string;
+    tr:     string;
+    tt:     string;
+    up:     string;
+    ut:     string;
+    wb:     string;
+}
+export interface StatesDailyStats {
+  states_daily: StatesDaily[];
+}
+export enum Status {
+    Confirmed = "Confirmed",
+    Deceased = "Deceased",
+    Recovered = "Recovered",
+}
+
+export interface StatesDailyGraph {
+  date? : string,
+  status?: Status,
+  count?: string
+}
