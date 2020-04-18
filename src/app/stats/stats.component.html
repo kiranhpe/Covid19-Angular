@@ -1,36 +1,28 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-12">
                 <div class="card card-chart">
-                    <div class="card-header card-header-danger">
-                        <app-line-bar-chart></app-line-bar-chart>
+                    <div class="card-header card-header-info">
+                        <app-line-bar-chart [series]="growthFactorSeriesOptions" [xAxisCatogories]="XRange">
+                        </app-line-bar-chart>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Growth Factor</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-6">
+                <div class="card card-chart">
+                    <div class="card-header card-header-info">
+                        <app-line-bar-chart [series]="recoveredVsDeathSeriesOptions" [xAxisCatogories]="XRange">
+                        </app-line-bar-chart>
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">Confirmed</h4>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-chart">
-                    <div class="card-header card-header-danger">
-                        <app-line-bar-chart></app-line-bar-chart>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Confirmed</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card card-chart">
-                    <div class="card-header card-header-danger">
-                        <app-line-bar-chart></app-line-bar-chart>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Confirmed</h4>
-                    </div>
-                </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
