@@ -11,6 +11,7 @@ import {
 import { interval, Subscription } from 'rxjs';
 import { CovidService } from 'app/services/covid.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Sort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,6 +31,8 @@ export class DashboardComponent implements OnInit {
   isDaily = false;
   isUniform = false;
 
+  sortedStates: Statewise[];
+  sortedDistricts: DistrictData[];
   seriesValues: any;
   yMinMax: [number, number] = [null, null];
 
@@ -69,6 +72,7 @@ export class DashboardComponent implements OnInit {
         this.districts = response.find(
           (v) => v.state === this.stateName
         ).districtData;
+        this.sortedDistricts = this.districts.slice();
         this.isLoading = false;
       });
       this._covid.getStatesDaily().subscribe((response) => {
@@ -86,7 +90,21 @@ export class DashboardComponent implements OnInit {
       this._covid.getDashBoardData().subscribe((response) => {
         this.covid = response.statewise[0];
         this.timeSeriesStates = response.cases_time_series;
-        this.states = response.statewise.slice(1);
+        this.states = response.statewise.slice(1).map((v) => {
+          return {
+            active: Number(v.active),
+            confirmed: Number(v.confirmed),
+            deaths: Number(v.deaths),
+            deltaconfirmed: Number(v.deltaconfirmed),
+            deltadeaths: Number(v.deltadeaths),
+            deltarecovered: Number(v.deltarecovered),
+            lastupdatedtime: v.lastupdatedtime,
+            recovered: Number(v.recovered),
+            state: v.state,
+            statecode: v.statecode,
+          };
+        });
+        this.sortedStates = this.states.slice();
         this.isLoading = false;
         this.prepareCountryCharts();
       });
@@ -128,7 +146,7 @@ export class DashboardComponent implements OnInit {
             name: 'Confirmed',
           },
           xAxisCatogories: this.timeSeriesStates.map((v) => {
-            return v.date.substring(0, 6).replace(' ','').replace('-','');
+            return v.date.substring(0, 6).replace(' ', '').replace('-', '');
           }),
         },
         recovered: {
@@ -140,7 +158,7 @@ export class DashboardComponent implements OnInit {
             name: 'Recovered',
           },
           xAxisCatogories: this.timeSeriesStates.map((v) => {
-            return v.date.substring(0, 6).replace(' ','').replace('-','');
+            return v.date.substring(0, 6).replace(' ', '').replace('-', '');
           }),
         },
         death: {
@@ -152,7 +170,7 @@ export class DashboardComponent implements OnInit {
             name: 'Death',
           },
           xAxisCatogories: this.timeSeriesStates.map((v) => {
-            return v.date.substring(0, 6).replace(' ','').replace('-','');
+            return v.date.substring(0, 6).replace(' ', '').replace('-', '');
           }),
         },
       };
@@ -178,7 +196,7 @@ export class DashboardComponent implements OnInit {
           xAxisCatogories: this.timeSeriesStates
             .slice(this.timeSeriesStates.length - 14)
             .map((v) => {
-              return v.date.substring(0, 6).replace(' ','').replace('-','');
+              return v.date.substring(0, 6).replace(' ', '').replace('-', '');
             }),
         },
         recovered: {
@@ -194,7 +212,7 @@ export class DashboardComponent implements OnInit {
           xAxisCatogories: this.timeSeriesStates
             .slice(this.timeSeriesStates.length - 14)
             .map((v) => {
-              return v.date.substring(0, 6).replace(' ','').replace('-','');
+              return v.date.substring(0, 6).replace(' ', '').replace('-', '');
             }),
         },
         death: {
@@ -210,7 +228,7 @@ export class DashboardComponent implements OnInit {
           xAxisCatogories: this.timeSeriesStates
             .slice(this.timeSeriesStates.length - 14)
             .map((v) => {
-              return v.date.substring(0, 6).replace(' ','').replace('-','');
+              return v.date.substring(0, 6).replace(' ', '').replace('-', '');
             }),
         },
       };
@@ -258,7 +276,7 @@ export class DashboardComponent implements OnInit {
             name: 'Confirmed',
           },
           xAxisCatogories: confirmedCases.map((v) => {
-            return v.date.substring(0, 6).replace(' ','').replace('-','');
+            return v.date.substring(0, 6).replace(' ', '').replace('-', '');
           }),
         },
         recovered: {
@@ -270,7 +288,7 @@ export class DashboardComponent implements OnInit {
             name: 'Recovered',
           },
           xAxisCatogories: recoveredCases.map((v) => {
-            return v.date.substring(0, 6).replace(' ','').replace('-','');
+            return v.date.substring(0, 6).replace(' ', '').replace('-', '');
           }),
         },
         death: {
@@ -282,7 +300,7 @@ export class DashboardComponent implements OnInit {
             name: 'Death',
           },
           xAxisCatogories: deathCases.map((v) => {
-            return v.date.substring(0, 6).replace(' ','').replace('-','');
+            return v.date.substring(0, 6).replace(' ', '').replace('-', '');
           }),
         },
       };
@@ -301,7 +319,7 @@ export class DashboardComponent implements OnInit {
           xAxisCatogories: this.timeSeriesStates
             .slice(this.timeSeriesStates.length - 14)
             .map((v) => {
-              return v.date.substring(0, 6).replace(' ','').replace('-','');
+              return v.date.substring(0, 6).replace(' ', '').replace('-', '');
             }),
         },
         recovered: {
@@ -317,7 +335,7 @@ export class DashboardComponent implements OnInit {
           xAxisCatogories: this.timeSeriesStates
             .slice(this.timeSeriesStates.length - 14)
             .map((v) => {
-              return v.date.substring(0, 6).replace(' ','').replace('-','');
+              return v.date.substring(0, 6).replace(' ', '').replace('-', '');
             }),
         },
         death: {
@@ -333,7 +351,7 @@ export class DashboardComponent implements OnInit {
           xAxisCatogories: this.timeSeriesStates
             .slice(this.timeSeriesStates.length - 14)
             .map((v) => {
-              return v.date.substring(0, 6).replace(' ','').replace('-','');
+              return v.date.substring(0, 6).replace(' ', '').replace('-', '');
             }),
         },
       };
@@ -378,6 +396,56 @@ export class DashboardComponent implements OnInit {
       this.loadData();
     }
   }
+
+  sortStatesData(sort: Sort) {
+    const data = this.states.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedStates = data;
+      return;
+    }
+
+    this.sortedStates = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'state':
+          return this.compare(a.state, b.state, isAsc);
+        case 'confirmed':
+          return this.compare(a.confirmed, b.confirmed, isAsc);
+        case 'recovered':
+          return this.compare(a.recovered, b.recovered, isAsc);
+        case 'active':
+          return this.compare(a.active, b.active, isAsc);
+        case 'deaths':
+          return this.compare(a.deaths, b.deaths, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
+
+  sortDistrictsData(sort: Sort) {
+    const data = this.districts.slice();
+    if (!sort.active || sort.direction === '') {
+      this.sortedDistricts = data;
+      return;
+    }
+
+    this.sortedDistricts = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'district':
+          return this.compare(a.district, b.district, isAsc);
+        case 'confirmed':
+          return this.compare(a.confirmed, b.confirmed, isAsc);
+        default:
+          return 0;
+      }
+    });
+  }
+  compare(a: number | string, b: number | string, isAsc: boolean) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }
+
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.loadData();

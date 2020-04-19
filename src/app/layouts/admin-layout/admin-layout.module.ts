@@ -18,6 +18,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatSortModule} from '@angular/material/sort';
+
 import { HttpClientModule } from '@angular/common/http';
 import { CovidService } from 'app/services/covid.service';
 
@@ -42,6 +44,7 @@ import { SpinnerComponent } from 'app/spinner/spinner.component';
     MatInputModule,
     MatSelectModule,
     MatTooltipModule,
+    MatSortModule,
     HttpClientModule,
     MatSlideToggleModule,
     HighchartsChartModule,
