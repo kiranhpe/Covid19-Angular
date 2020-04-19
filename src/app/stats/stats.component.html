@@ -1,10 +1,16 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-12">
+                <mat-slide-toggle class="pull-right"  [checked]="isDaily" (change)="onDailyChange($event)">Daily</mat-slide-toggle>
+                <mat-slide-toggle class="pull-right"  [checked]="graphType === 'column'" (change)="onGraphChange($event)">Bar Graph</mat-slide-toggle>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <div class="card card-chart">
                     <div class="card-header card-header-info">
-                        <app-line-bar-chart [series]="growthFactorSeriesOptions" [xAxisCatogories]="XRange">
+                        <app-line-bar-chart [series]="growthFactorSeriesOptions" [xAxisCatogories]="growthFactorXRange">
                         </app-line-bar-chart>
                     </div>
                     <div class="card-body">
@@ -12,17 +18,17 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-md-6">
+            <div class="col-md-6">
                 <div class="card card-chart">
                     <div class="card-header card-header-info">
-                        <app-line-bar-chart [series]="recoveredVsDeathSeriesOptions" [xAxisCatogories]="XRange">
+                        <app-line-bar-chart [series]="recoveredVsDeathSeriesOptions" [xAxisCatogories]="recoveredVsDeathXRange">
                         </app-line-bar-chart>
                     </div>
                     <div class="card-body">
-                        <h4 class="card-title">Confirmed</h4>
+                        <h4 class="card-title">Recovered Vs Death</h4>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </div>
 </div>

@@ -10,7 +10,13 @@ export class LineBarChartOptions {
     plotOptions: {
       series: {
         lineWidth: 4
-      }
+      },
+      column: {
+        dataLabels: {
+            enabled: true,
+            crop: false,
+        }
+    }
     },
     title: {
       text: '',
