@@ -150,16 +150,16 @@
                         </h4>
                     </div>
                     <div class="card-body table-responsive">
-                        <table class="table table-hover">
-                            <thead class="text-warning">
-                                <th>State</th>
-                                <th>Confirmed</th>
-                                <th>Active</th>
-                                <th>Recovered</th>
-                                <th>Deaths</th>
-                            </thead>
-                            <tbody *ngIf="states">
-                                <tr *ngFor='let state of states' (click)="gotoState(state)" class="click">
+                        <table class="table table-hover" matSort (matSortChange)="sortStatesData($event)">
+                            <tr class="text-warning">
+                                <th mat-sort-header="state">State</th>
+                                <th mat-sort-header="confirmed">Confirmed</th>
+                                <th mat-sort-header="active">Active</th>
+                                <th mat-sort-header="recovered">Recovered</th>
+                                <th mat-sort-header="deaths">Deaths</th>
+                            </tr>
+                           
+                                <tr *ngFor='let state of sortedStates' (click)="gotoState(state)" class="click">
                                     <td>{{state.state}}</td>
                                     <td>
                                         <p><span class="text-danger"><i class="fa fa-caret-up" aria-hidden="true"></i>
@@ -175,7 +175,6 @@
                                                 {{state.deltadeaths}} </span>{{state.deaths}}</p>
                                     </td>
                                 </tr>
-                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -190,13 +189,13 @@
                         </h4>
                     </div>
                     <div class="card-body table-responsive">
-                        <table class="table table-hover">
-                            <thead class="text-warning">
-                                <th>State</th>
-                                <th>Confirmed</th>
-                            </thead>
+                        <table class="table table-hover" matSort (matSortChange)="sortDistrictsData($event)">
+                            <tr class="text-warning">
+                                <th mat-sort-header="district">District</th>
+                                <th mat-sort-header="confirmed">Confirmed</th>
+                            </tr>
                             <tbody *ngIf="districts">
-                                <tr *ngFor='let district of districts'>
+                                <tr *ngFor='let district of sortedDistricts'>
                                     <td>{{district.district}}</td>
                                     <td>
                                         <p><span class="text-danger"><i class="fa fa-caret-up" aria-hidden="true"></i> {{district.delta.confirmed}} 

@@ -9,14 +9,14 @@ export interface CasesTimeSeries {
   }
   
   export interface Statewise {
-    active?: string;
-    confirmed?: string;
-    deaths?: string;
-    deltaconfirmed?: string;
-    deltadeaths?: string;
-    deltarecovered?: string;
+    active?: string | number;
+    confirmed?: string | number;
+    deaths?: string | number;
+    deltaconfirmed?: string | number;
+    deltadeaths?: string | number;
+    deltarecovered?: string | number;
     lastupdatedtime?: string;
-    recovered?: string;
+    recovered?: string | number;
     state?: string;
     statecode?: string;
   }
