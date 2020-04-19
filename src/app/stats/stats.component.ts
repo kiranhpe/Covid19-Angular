@@ -106,7 +106,7 @@ export class StatsComponent implements OnInit {
       this.graphType = 'column';
       this.loadData();
     } else {
-      this.graphType = this.graphType;
+      this.graphType = 'line';
       this.loadData();
     }
   }
