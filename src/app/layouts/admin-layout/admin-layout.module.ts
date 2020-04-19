@@ -29,6 +29,7 @@ import { FeebbackComponent } from 'app/feebback/feebback.component';
 import { UpdatesComponent } from 'app/updates/updates.component';
 import { StatsComponent } from 'app/stats/stats.component';
 import { SpinnerComponent } from 'app/spinner/spinner.component';
+import { PieChartComponent } from 'app/shared/component/pie-chart/pie-chart.component';
 
 // import { NgxSpinnerModule } from 'ngx-spinner';
 
@@ -62,6 +63,7 @@ import { SpinnerComponent } from 'app/spinner/spinner.component';
     UpdatesComponent,
     FeebbackComponent,
     LineBarChartComponent,
+    PieChartComponent,
     SpinnerComponent,
   ],
   providers: [CovidService],

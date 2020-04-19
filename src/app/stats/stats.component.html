@@ -30,5 +30,27 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-chart">
+                    <div class="card-header card-header-info">
+                        <app-pie-chart [series]="totalCasesPieChartData"></app-pie-chart>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Total cases status wise</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-chart">
+                    <div class="card-header card-header-info">
+                        <app-pie-chart [series]="totalStatesPieChartData"></app-pie-chart>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Total cases statewise</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

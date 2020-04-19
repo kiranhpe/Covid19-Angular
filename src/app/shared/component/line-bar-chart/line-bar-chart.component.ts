@@ -27,7 +27,6 @@ export class LineBarChartComponent implements OnInit, OnChanges {
   }
 
   createChart() {
-    console.log(this.series)
     this.chartOptions = {
       ...this.chartOptions,
       legend: {
