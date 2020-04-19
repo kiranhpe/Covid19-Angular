@@ -16,13 +16,22 @@ export class StatsComponent implements OnInit {
 
   growthFactor: GrowthFactor[];
   growthFactorSeriesOptions: SeriesOptionsType[];
-  XRange: string[];
 
+  growthFactorXRange: string[];
+  recoveredVsDeathXRange: string[];
   recoveredVsDeathSeriesOptions: SeriesOptionsType[];
+
+  isDaily = false;
+  graphType = 'line'
+
   ngOnInit(): void {
-    this.loadGrowthFactor();
+   this.loadData()
   }
 
+  loadData() {
+    this.loadGrowthFactor();
+    
+  }
   loadGrowthFactor() {
     this._covid.getDashBoardData().subscribe(response => {
       this.timeLine = response.cases_time_series;
@@ -43,37 +52,62 @@ export class StatsComponent implements OnInit {
   prepareGrowthFactorGrapghData() {
     this.growthFactorSeriesOptions = [
       {
-        type:'line',
+        type: 'line',
         data: this.growthFactor.map(v => {
           return (Math.round(v.growthFactor * 100) / 100);
         }),
         name:'Growth Factor'
-      }
+      },
+      
+      
     ];
 
-    this.XRange = this.growthFactor.map(v => {
+    this.growthFactorXRange = this.growthFactor.map(v => {
       return v.date.replace(' ','').substring(0,5);
     })
+
+    this.recoveredVsDeathXRange = this.growthFactorXRange;
+    this.recoveredVsDeathXRange = this.isDaily ? this.recoveredVsDeathXRange.slice(this.recoveredVsDeathXRange.length - 14) : this.recoveredVsDeathXRange;
   }
 
   loadRecoveredVsDeathGraph() {
     this.recoveredVsDeathSeriesOptions = [
       {
-        type: 'line',
+        type: this.graphType === 'line' ? 'line' : 'column',
         name: 'Recovered',
-        data:  this.timeLine.map(v => {
-          return Number(v.totalrecovered)
+        data:  this.timeLine.slice(this.isDaily ? this.timeLine.length - 14 : 0).map(v => {
+          return Number(this.isDaily ? v.dailyrecovered : v.totalrecovered)
         }),
         color : 'green'
       },
       {
-        type: 'line',
+        type: this.graphType === 'line' ? 'line' : 'column',
         name: 'Death',
-        data:  this.timeLine.map(v => {
-          return Number(v.totaldeceased)
+        data:  this.timeLine.slice(this.isDaily ? this.timeLine.length - 14 : 0).map(v => {
+          return Number(this.isDaily ? v.dailydeceased : v.totaldeceased)
         }),
         color: 'red'
       }
     ]
+  }
+
+  onDailyChange(e) {
+    if (e.checked) {
+      this.isDaily = true;
+      this.loadData();
+    } else {
+      this.isDaily = false;
+      this.loadData();
+    }
+  }
+
+  onGraphChange(e: any) {
+    if (e.checked) {
+      this.graphType = 'column';
+      this.loadData();
+    } else {
+      this.graphType = this.graphType;
+      this.loadData();
+    }
   }
 }
