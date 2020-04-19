@@ -13,6 +13,7 @@ export class LineBarChartComponent implements OnInit, OnChanges {
   @Input() xMinMax: [number, number];
   @Input() yMinMax: [number, number];
   @Input() seriesType: string;
+  @Input() isLegendsEnabled: boolean;
 
   highcharts = Highcharts;
   chartOptions = new LineBarChartOptions().chartOptions;
@@ -29,6 +30,9 @@ export class LineBarChartComponent implements OnInit, OnChanges {
     console.log(this.series)
     this.chartOptions = {
       ...this.chartOptions,
+      legend: {
+        enabled: this.isLegendsEnabled
+      },
       yAxis: {
         ...this.chartOptions.yAxis,
         min: this.yMinMax ? this.yMinMax[0] : null,
