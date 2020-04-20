@@ -1,3 +1,5 @@
+<app-spinner [isLoading]="isLoading"></app-spinner>
+
 <div class="main-content">
     <div class="container-fluid">
         <div class="row">
@@ -49,6 +51,22 @@
                     <div class="card-body">
                         <h4 class="card-title">Total cases statewise</h4>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-chart">
+                    <div class="card-header card-header-info">
+                        <app-line-bar-chart [series]="predictionGraphSeriesOptions" [xAxisCatogories]="predictionXRange">
+                        </app-line-bar-chart>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Preditions for next one month</h4>
+                    </div>
+                    <div class="card-footer">
+                        <small class="card-title"><i class="fa fa-info-circle"></i> Preditions based on avarage growth factor : {{avgGF}}</small>
+                    </div>  
                 </div>
             </div>
         </div>

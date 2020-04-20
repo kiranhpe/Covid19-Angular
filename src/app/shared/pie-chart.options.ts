@@ -9,8 +9,8 @@ export class PieChartOptions {
     },
     plotOptions: {
       pie: {
-        innerSize: 100,
-        depth: 50,
+        innerSize: 70,
+        
       },
       column: {
         dataLabels: {
