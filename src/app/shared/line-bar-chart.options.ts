@@ -13,7 +13,7 @@ export class LineBarChartOptions {
       },
       column: {
         dataLabels: {
-            enabled: true,
+            enabled: false,
             crop: false,
         }
     }

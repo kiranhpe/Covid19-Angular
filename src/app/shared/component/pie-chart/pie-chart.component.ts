@@ -24,7 +24,6 @@ export class PieChartComponent implements OnInit, OnChanges{
 
 
   createChart() {
-    console.log(this.series)
     this.chartOptions = {
       ...this.chartOptions,
       legend: {
