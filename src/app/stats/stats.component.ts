@@ -65,7 +65,7 @@ export class StatsComponent implements OnInit {
   prepareGrowthFactorGrapghData() {
     this.growthFactorSeriesOptions = [
       {
-        type: 'line',
+        type: this.graphType,
         data: this.growthFactor.map((v) => {
           return Math.round(v.growthFactor * 100) / 100;
         }),
