@@ -149,6 +149,18 @@ export class DashboardComponent implements OnInit {
             return v.date.substring(0, 6).replace(' ', '').replace('-', '');
           }),
         },
+        active: {
+          series: {
+            type: 'line',
+            data: this.timeSeriesStates.map((v) => {
+              return (Number(v.totalconfirmed) - (Number(v.totalrecovered) + Number(v.totaldeceased)));
+            }),
+            name: 'Active',
+          },
+          xAxisCatogories: this.timeSeriesStates.map((v) => {
+            return v.date.substring(0, 6).replace(' ', '').replace('-', '');
+          }),
+        },
         recovered: {
           series: {
             type: 'line',
@@ -190,6 +202,22 @@ export class DashboardComponent implements OnInit {
               .slice(this.timeSeriesStates.length - 14)
               .map((v) => {
                 return Number(v.dailyconfirmed);
+              }),
+            name: 'Confirmed',
+          },
+          xAxisCatogories: this.timeSeriesStates
+            .slice(this.timeSeriesStates.length - 14)
+            .map((v) => {
+              return v.date.substring(0, 6).replace(' ', '').replace('-', '');
+            }),
+        },
+        active: {
+          series: {
+            type: 'column',
+            data: this.timeSeriesStates
+              .slice(this.timeSeriesStates.length - 14)
+              .map((v) => {
+                return (Number(v.dailyconfirmed) - (Number(v.dailydeceased) + Number(v.dailyrecovered)));
               }),
             name: 'Confirmed',
           },

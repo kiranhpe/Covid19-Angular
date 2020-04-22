@@ -89,7 +89,7 @@
         </div>
         <div class="row">
             <!-- Confirmed cases graph -->
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card card-chart">
                     <div class="card-header card-header-danger">
                         <app-line-bar-chart 
@@ -106,8 +106,26 @@
                     </div>
                 </div>
             </div>
+             <!-- Active cases graph -->
+             <div class="col-md-6">
+                <div class="card card-chart">
+                    <div class="card-header card-header-info">
+                        <app-line-bar-chart 
+                        [series]="this.seriesValues?.active.series"
+                        [xAxisCatogories]="seriesValues?.active.xAxisCatogories"
+                        [yMinMax]="yMinMax">
+                    </app-line-bar-chart>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Active</h4>
+                        <p class="card-category">
+                            <span class="text-info">
+                                <i class="fa fa-long-arrow-up"></i> {{changeConfirmed}} </span> Yesterday's change</p>
+                    </div>
+                </div>
+            </div>
             <!-- Recoved cases graph-->
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card card-chart">
                     <div class="card-header card-header-success">
                         <app-line-bar-chart 
@@ -124,7 +142,7 @@
                 </div>
             </div>
             <!-- Death cases graph-->
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card card-chart">
                     <div class="card-header card-header-info">
                         <app-line-bar-chart 
