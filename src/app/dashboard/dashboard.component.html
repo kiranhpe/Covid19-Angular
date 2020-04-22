@@ -28,13 +28,13 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
-                    <div class="card-header card-header-warning card-header-icon">
+                    <div class="card-header card-header-info card-header-icon">
                         <div class="card-icon">
                             <i class="fa fa-stethoscope" aria-hidden="true"></i>
                         </div>
                         <p class="card-category">Active</p>
                         <h3 class="card-title">{{covid?.active}}</h3>
-                        <h4 class="card-title text-warning"><i class="fa fa-info" aria-hidden="true"></i>0</h4>
+                        <h4 class="card-title text-info"><i class="fa fa-info" aria-hidden="true"></i>0</h4>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
@@ -63,13 +63,13 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
-                    <div class="card-header card-header-info card-header-icon">
+                    <div class="card-header card-header-warning card-header-icon">
                         <div class="card-icon">
                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                         </div>
                         <p class="card-category">Deaths</p>
                         <h3 class="card-title">{{covid?.deaths}}</h3>
-                        <h4 class="card-title text-info"><i class="fa fa-caret-up"
+                        <h4 class="card-title text-warning"><i class="fa fa-caret-up"
                                 aria-hidden="true"></i>{{covid?.deltadeaths}}</h4>
                     </div>
                     <div class="card-footer">
@@ -89,7 +89,7 @@
         </div>
         <div class="row">
             <!-- Confirmed cases graph -->
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card card-chart">
                     <div class="card-header card-header-danger">
                         <app-line-bar-chart 
@@ -106,8 +106,26 @@
                     </div>
                 </div>
             </div>
+             <!-- Active cases graph -->
+             <div class="col-md-6">
+                <div class="card card-chart">
+                    <div class="card-header card-header-info">
+                        <app-line-bar-chart 
+                        [series]="this.seriesValues?.active.series"
+                        [xAxisCatogories]="seriesValues?.active.xAxisCatogories"
+                        [yMinMax]="yMinMax">
+                    </app-line-bar-chart>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">Active</h4>
+                        <p class="card-category">
+                            <span class="text-info">
+                                <i class="fa fa-long-arrow-up"></i> 0 </span> Yesterday's change</p>
+                    </div>
+                </div>
+            </div>
             <!-- Recoved cases graph-->
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card card-chart">
                     <div class="card-header card-header-success">
                         <app-line-bar-chart 
@@ -124,9 +142,9 @@
                 </div>
             </div>
             <!-- Death cases graph-->
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card card-chart">
-                    <div class="card-header card-header-info">
+                    <div class="card-header card-header-warning">
                         <app-line-bar-chart 
                         [series]="this.seriesValues?.death.series"
                         [xAxisCatogories]="seriesValues?.death.xAxisCatogories"
@@ -135,7 +153,7 @@
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">Deaths</h4>
-                        <p class="card-category"><span class="text-info">
+                        <p class="card-category"><span class="text-warning">
                             <i class="fa fa-long-arrow-up"></i> {{changeDeath}} </span> Yesterday's change</p>
                     </div>
                 </div>
