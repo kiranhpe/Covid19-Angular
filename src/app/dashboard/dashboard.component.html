@@ -144,7 +144,7 @@
             <!-- Death cases graph-->
             <div class="col-md-6">
                 <div class="card card-chart">
-                    <div class="card-header card-header-info">
+                    <div class="card-header card-header-warning">
                         <app-line-bar-chart 
                         [series]="this.seriesValues?.death.series"
                         [xAxisCatogories]="seriesValues?.death.xAxisCatogories"
@@ -153,7 +153,7 @@
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">Deaths</h4>
-                        <p class="card-category"><span class="text-info">
+                        <p class="card-category"><span class="text-warning">
                             <i class="fa fa-long-arrow-up"></i> {{changeDeath}} </span> Yesterday's change</p>
                     </div>
                 </div>

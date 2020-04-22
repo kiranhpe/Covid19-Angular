@@ -307,6 +307,18 @@ export class DashboardComponent implements OnInit {
             return v.date.substring(0, 6).replace(' ', '').replace('-', '');
           }),
         },
+        active: {
+          series: {
+            type: this.statesGraphType,
+            data: confirmedCases.map((v, index) => {
+              return (Number(v.count) - (Number(recoveredCases[index].count) + Number(deathCases[index].count)));
+            }),
+            name: 'Confirmed',
+          },
+          xAxisCatogories: confirmedCases.map((v) => {
+            return v.date.substring(0, 6).replace(' ', '').replace('-', '');
+          }),
+        },
         recovered: {
           series: {
             type: this.statesGraphType,
