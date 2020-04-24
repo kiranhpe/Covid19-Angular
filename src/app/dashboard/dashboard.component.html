@@ -2,7 +2,7 @@
 <div class="main-content">
     <div class="container-fluid">
         <div class="card-header">
-            <h4 class="card-title text-info"><span *ngIf="covid?.state !== 'Total'" class="click" (click)="goBack()"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>&nbsp;</span>{{covid?.state === 'Total' ? 'India' : covid?.state}}
+            <h4 class="card-title text-info"><span *ngIf="covid?.state !== 'Total'" class="click" (click)="goBack()"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i>&nbsp;</span>{{covid?.state === 'Total' ? 'INDIA' : covid?.state}}
                 <span class="pull-right refresh" (click)="loadData(true)"><i class="fa fa-refresh"
                         aria-hidden="true"></i></span>
             </h4>
