@@ -54,6 +54,11 @@ export interface CasesTimeSeries {
   }
   
   export interface GrowthFactor {
+      status?: string;
+      stats: GFStats[];
+  }
+
+  export interface GFStats {
       date: string;
       newCases?: number;
       growthFactor: number;
