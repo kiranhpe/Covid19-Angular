@@ -17,7 +17,7 @@ export class StatsComponent implements OnInit {
   isLoading = true;
   timeLine: CasesTimeSeries[];
   states: Statewise[];
-  growthFactor: GrowthFactor[];
+  growthFactor: GrowthFactor[]=[];
   growthFactorSeriesOptions: SeriesOptionsType[];
 
   growthFactorXRange: string[];
@@ -44,36 +44,49 @@ export class StatsComponent implements OnInit {
     this._covid.getDashBoardData().subscribe((response) => {
       this.timeLine = response.cases_time_series;
       this.states = response.statewise;
-      this.prepareGrowthFactor();
+      this.prepareGrowthFactorGrapghData();
       this.loadRecoveredVsDeathGraph();
       this.loadTotalPieChart();
     });
   }
-  prepareGrowthFactor() {
-    this.growthFactor = this.timeLine.map((v, index) => {
-      return {
-        date: v.date,
-        newCases: Number(v.dailyconfirmed),
-        growthFactor: this.timeLine[index - 1]
-          ? Number(this.timeLine[index].totalconfirmed) /
-            Number(this.timeLine[index - 1].totalconfirmed)
-          : 0,
-      };
-    });
-    this.prepareGrowthFactorGrapghData();
+  prepareGrowthFactor(timeSeries: CasesTimeSeries[], status: string):GrowthFactor {
+    return {
+      status: status,
+      stats: timeSeries.map((v, index) => {
+        return {
+            date: v.date,
+            newCases: Number(v.dailyconfirmed),
+            growthFactor: this.timeLine[index - 1]
+              ? Number(this.timeLine[index][status]) /
+                Number(this.timeLine[index - 1][status])
+              : 0,
+          
+        };
+      })
+    }  
   }
   prepareGrowthFactorGrapghData() {
+
+    this.growthFactor.push(this.prepareGrowthFactor(this.timeLine, 'totalconfirmed'));
+    this.growthFactor.push(this.prepareGrowthFactor(this.timeLine, 'totalrecovered'));
     this.growthFactorSeriesOptions = [
       {
         type: 'line',
-        data: this.growthFactor.map((v) => {
+        data: this.growthFactor[0].stats.map((v) => {
           return Math.round(v.growthFactor * 100) / 100;
         }),
-        name: 'Growth Factor',
+        name: 'Growth Factor Confirmed',
+      },
+      {
+        type: 'line',
+        data: this.growthFactor[1].stats.map((v) => {
+          return Math.round(v.growthFactor * 100) / 100;
+        }),
+        name: 'Growth Factor Recoverd',
       },
     ];
 
-    this.growthFactorXRange = this.growthFactor.map((v) => {
+    this.growthFactorXRange = this.growthFactor[0].stats.map((v) => {
       return v.date.replace(' ', '').substring(0, 5);
     });
 
@@ -167,16 +180,16 @@ export class StatsComponent implements OnInit {
         type: this.graphType,
         data: data,
         name: 'Active Cases',
-      },
+      }
     ];
   }
 
   calcAvgGF(data: GrowthFactor[]) {
     let total = 0;
-    data.forEach((gf) => {
+    data[0].stats.forEach((gf) => {
       total = total + gf.growthFactor;
     });
-    return total / data.length;
+    return total / data[0].stats.length;
   }
 
   predict(lastUpdated: number, gf: number, futureDays: number) {
