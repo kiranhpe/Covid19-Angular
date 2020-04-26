@@ -493,4 +493,9 @@ export class DashboardComponent implements OnInit {
   goBack() {
     this.router.navigate(['/dashboard']);
   }
+
+  getPercentage(total: number, fraction: number)
+  {
+    return Math.round((fraction / total) * 10000) / 100
+  }
 }
