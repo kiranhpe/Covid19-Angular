@@ -211,13 +211,28 @@
                             <tr class="text-warning">
                                 <th mat-sort-header="district">District</th>
                                 <th mat-sort-header="confirmed">Confirmed</th>
+                                <th mat-sort-header="active">Active</th>
+                                <th mat-sort-header="recovered">Recovered</th>
+                                <th mat-sort-header="deaths">Deaths</th>
                             </tr>
                             <tbody *ngIf="districts">
                                 <tr *ngFor='let district of sortedDistricts'>
-                                    <td>{{district.district}}</td>
+                                    <td>{{district?.district}}</td>
                                     <td>
-                                        <p><span class="text-danger"><i class="fa fa-caret-up" aria-hidden="true"></i> {{district.delta.confirmed}} 
-                                            </span>{{district.confirmed}}</p>
+                                        <p><span class="text-danger"><i class="fa fa-caret-up" aria-hidden="true"></i> {{district?.delta.confirmed}} 
+                                            </span>{{district?.confirmed}}</p>
+                                    </td>
+                                    <td>
+                                        <p><span class="text-info">
+                                            </span>{{district?.active}}</p>
+                                    </td>
+                                    <td>
+                                        <p><span class="text-success"><i class="fa fa-caret-up" aria-hidden="true"></i>  {{district?.delta.recovered}}
+                                            </span>{{district?.recovered}}</p>
+                                    </td>
+                                    <td>
+                                        <p><span class="text-warning"><i class="fa fa-caret-up" aria-hidden="true"></i>  {{district?.delta.deceased}}
+                                            </span>{{district?.deceased}}</p>
                                     </td>
                                 </tr>
                             </tbody>
