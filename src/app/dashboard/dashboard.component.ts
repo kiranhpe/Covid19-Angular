@@ -477,6 +477,12 @@ export class DashboardComponent implements OnInit {
           return this.compare(a.district, b.district, isAsc);
         case 'confirmed':
           return this.compare(a.confirmed, b.confirmed, isAsc);
+        case 'recovered':
+          return this.compare(a.recovered, b.recovered, isAsc);
+        case 'active':
+          return this.compare(a.active, b.active, isAsc);
+        case 'deaths':
+          return this.compare(a.deaths, b.deaths, isAsc);
         default:
           return 0;
       }
