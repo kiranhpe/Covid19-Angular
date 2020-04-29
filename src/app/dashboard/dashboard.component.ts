@@ -482,7 +482,7 @@ export class DashboardComponent implements OnInit {
         case 'active':
           return this.compare(a.active, b.active, isAsc);
         case 'deaths':
-          return this.compare(a.deaths, b.deaths, isAsc);
+          return this.compare(a.deceased, b.deceased, isAsc);
         default:
           return 0;
       }
