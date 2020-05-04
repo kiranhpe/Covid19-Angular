@@ -216,8 +216,8 @@
                                 <th mat-sort-header="deaths">Deaths</th>
                             </tr>
                             <tbody *ngIf="districts">
-                                <tr *ngFor='let district of sortedDistricts'>
-                                    <td>{{district?.district}}</td>
+                                <tr *ngFor='let district of sortedDistricts' >
+                                    <td [ngStyle]="{'border-left':district.confirmed >= 15 ? '3pt solid red' : '3pt solid orange'}">{{district?.district}}</td>
                                     <td>
                                         <p><span class="text-danger"><i class="fa fa-caret-up" aria-hidden="true"></i> {{district?.delta.confirmed}} 
                                             </span>{{district?.confirmed}}</p>
