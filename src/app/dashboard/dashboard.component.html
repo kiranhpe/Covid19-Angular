@@ -217,7 +217,7 @@
                             </tr>
                             <tbody *ngIf="districts">
                                 <tr *ngFor='let district of sortedDistricts' >
-                                    <td [ngStyle]="{'border-left':district.confirmed >= 15 ? '3pt solid red' : '3pt solid orange'}">{{district?.district}}</td>
+                                    <td [ngStyle]="{'border-left':district.confirmed >= 15 ? '3pt solid red' : '3pt solid orange'}"><p [ngStyle]="{'color':district.confirmed >= 15 ? 'red' : 'orange'}">{{district?.district}}</p></td>
                                     <td>
                                         <p><span class="text-danger"><i class="fa fa-caret-up" aria-hidden="true"></i> {{district?.delta.confirmed}} 
                                             </span>{{district?.confirmed}}</p>
