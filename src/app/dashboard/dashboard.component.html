@@ -15,7 +15,7 @@
                             <i class="fa fa-medkit" aria-hidden="true"></i>
                         </div>
                         <p class="card-category">Confirmed <br/> <b>{{getPercentage(covid?.confirmed, covid?.confirmed)}}%</b></p>
-                        <h3 class="card-title">{{covid?.confirmed}}</h3>
+                        <h3 class="card-title">{{covid?.confirmed | number:'':'en-IN'}}</h3>
                         <h4 class="card-title text-danger"><i class="fa fa-caret-up" aria-hidden="true"></i>
                             {{covid?.deltaconfirmed}}</h4>
                     </div>
@@ -33,7 +33,7 @@
                             <i class="fa fa-stethoscope" aria-hidden="true"></i>
                         </div>
                         <p class="card-category">Active <br/> <b>{{getPercentage(covid?.confirmed, covid?.active)}}%</b></p>
-                        <h3 class="card-title">{{covid?.active}}</h3>
+                        <h3 class="card-title">{{covid?.active | number:'':'en-IN'}}</h3>
                         <h4 class="card-title text-info"><i class="fa fa-info" aria-hidden="true"></i>0</h4>
                     </div>
                     <div class="card-footer">
@@ -50,7 +50,7 @@
                             <i class="fa fa-heartbeat" aria-hidden="true"></i>
                         </div>
                         <p class="card-category">Recovered  <br/><b>{{getPercentage(covid?.confirmed, covid?.recovered)}}%</b></p>
-                        <h3 class="card-title">{{covid?.recovered}}</h3>
+                        <h3 class="card-title">{{covid?.recovered | number:'':'en-IN'}}</h3>
                         <h4 class="card-title text-success"><i class="fa fa-caret-up"
                                 aria-hidden="true"></i>{{covid?.deltarecovered}}</h4>
                     </div>
@@ -68,7 +68,7 @@
                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                         </div>
                         <p class="card-category">Deaths  <br/> <b>{{getPercentage(covid?.confirmed, covid?.deaths)}}%</b></p>
-                        <h3 class="card-title">{{covid?.deaths}}</h3>
+                        <h3 class="card-title">{{covid?.deaths | number:'':'en-IN'}}</h3>
                         <h4 class="card-title text-warning"><i class="fa fa-caret-up"
                                 aria-hidden="true"></i>{{covid?.deltadeaths}}</h4>
                     </div>
@@ -102,7 +102,7 @@
                         <h4 class="card-title">Confirmed</h4>
                         <p class="card-category">
                             <span class="text-danger">
-                                <i class="fa fa-long-arrow-up"></i> {{changeConfirmed}} </span> Yesterday's change</p>
+                                <i class="fa fa-long-arrow-up"></i> {{changeConfirmed | number:'':'en-IN'}} </span> Yesterday's change</p>
                     </div>
                 </div>
             </div>
@@ -137,7 +137,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Recovered</h4>
                         <p class="card-category"><span class="text-success">
-                                <i class="fa fa-long-arrow-up"></i> {{changeRecovered}} </span> Yesterday's change</p>
+                                <i class="fa fa-long-arrow-up"></i> {{changeRecovered | number:'':'en-IN'}} </span> Yesterday's change</p>
                     </div>
                 </div>
             </div>
@@ -154,7 +154,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Deaths</h4>
                         <p class="card-category"><span class="text-warning">
-                            <i class="fa fa-long-arrow-up"></i> {{changeDeath}} </span> Yesterday's change</p>
+                            <i class="fa fa-long-arrow-up"></i> {{changeDeath | number:'':'en-IN'}} </span> Yesterday's change</p>
                     </div>
                 </div>
             </div>
@@ -181,16 +181,16 @@
                                     <td>{{state.state}}</td>
                                     <td>
                                         <p><span class="text-danger"><i class="fa fa-caret-up" aria-hidden="true"></i>
-                                                {{state.deltaconfirmed}} </span>{{state.confirmed}}</p>
+                                                {{state.deltaconfirmed}} </span>{{state.confirmed | number:'':'en-IN'}}</p>
                                     </td>
                                     <td>{{state.active}}</td>
                                     <td>
                                         <p><span class="text-success"><i class="fa fa-caret-up" aria-hidden="true"></i>
-                                                {{state.deltarecovered}} </span>{{state.recovered}}</p>
+                                                {{state.deltarecovered}} </span>{{state.recovered | number:'':'en-IN'}}</p>
                                     </td>
                                     <td>
                                         <p><span class="text-info"><i class="fa fa-caret-up" aria-hidden="true"></i>
-                                                {{state.deltadeaths}} </span>{{state.deaths}}</p>
+                                                {{state.deltadeaths}} </span>{{state.deaths | number:'':'en-IN'}}</p>
                                     </td>
                                 </tr>
                         </table>
@@ -220,19 +220,19 @@
                                     <td [ngStyle]="{'border-left':district.confirmed >= 15 ? '3pt solid red' : '3pt solid orange'}"><p [ngStyle]="{'color':district.confirmed >= 15 ? 'red' : 'orange'}">{{district?.district}}</p></td>
                                     <td>
                                         <p><span class="text-danger"><i class="fa fa-caret-up" aria-hidden="true"></i> {{district?.delta.confirmed}} 
-                                            </span>{{district?.confirmed}}</p>
+                                            </span>{{district?.confirmed | number:'':'en-IN'}}</p>
                                     </td>
                                     <td>
                                         <p><span class="text-info">
-                                            </span>{{district?.active}}</p>
+                                            </span>{{district?.active | number:'':'en-IN'}}</p>
                                     </td>
                                     <td>
                                         <p><span class="text-success"><i class="fa fa-caret-up" aria-hidden="true"></i>  {{district?.delta.recovered}}
-                                            </span>{{district?.recovered}}</p>
+                                            </span>{{district?.recovered | number:'':'en-IN'}}</p>
                                     </td>
                                     <td>
                                         <p><span class="text-warning"><i class="fa fa-caret-up" aria-hidden="true"></i>  {{district?.delta.deceased}}
-                                            </span>{{district?.deceased}}</p>
+                                            </span>{{district?.deceased | number:'':'en-IN'}}</p>
                                     </td>
                                 </tr>
                             </tbody>

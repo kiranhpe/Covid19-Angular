@@ -13,11 +13,10 @@ import { SeriesOptionsType } from 'highcharts';
   styleUrls: ['./stats.component.css'],
 })
 export class StatsComponent implements OnInit {
-
   isLoading = true;
   timeLine: CasesTimeSeries[];
   states: Statewise[];
-  growthFactor: GrowthFactor[]=[];
+  growthFactor: GrowthFactor[] = [];
   growthFactorSeriesOptions: SeriesOptionsType[];
 
   growthFactorXRange: string[];
@@ -28,7 +27,7 @@ export class StatsComponent implements OnInit {
   totalCasesPieChartData: any[];
 
   predictionGraphSeriesOptions: SeriesOptionsType[];
-  predictionXRange: string[]=[];
+  predictionXRange: string[] = [];
 
   isDaily = false;
   graphType: any = 'line';
@@ -49,26 +48,31 @@ export class StatsComponent implements OnInit {
       this.loadTotalPieChart();
     });
   }
-  prepareGrowthFactor(timeSeries: CasesTimeSeries[], status: string):GrowthFactor {
+  prepareGrowthFactor(
+    timeSeries: CasesTimeSeries[],
+    status: string
+  ): GrowthFactor {
     return {
       status: status,
       stats: timeSeries.map((v, index) => {
         return {
-            date: v.date,
-            newCases: Number(v.dailyconfirmed),
-            growthFactor: this.timeLine[index - 1]
-              ? Number(this.timeLine[index][status]) /
-                Number(this.timeLine[index - 1][status])
-              : 0,
-          
+          date: v.date,
+          newCases: Number(v.dailyconfirmed),
+          growthFactor: this.timeLine[index - 1]
+            ? Number(this.timeLine[index][status]) /
+              Number(this.timeLine[index - 1][status])
+            : 0,
         };
-      })
-    }  
+      }),
+    };
   }
   prepareGrowthFactorGrapghData() {
-
-    this.growthFactor.push(this.prepareGrowthFactor(this.timeLine, 'totalconfirmed'));
-    this.growthFactor.push(this.prepareGrowthFactor(this.timeLine, 'totalrecovered'));
+    this.growthFactor.push(
+      this.prepareGrowthFactor(this.timeLine, 'totalconfirmed')
+    );
+    this.growthFactor.push(
+      this.prepareGrowthFactor(this.timeLine, 'totalrecovered')
+    );
     this.growthFactorSeriesOptions = [
       {
         type: 'line',
@@ -114,6 +118,28 @@ export class StatsComponent implements OnInit {
       },
       {
         type: this.graphType === 'line' ? 'line' : 'column',
+        name: 'Active',
+        data: this.timeLine
+          .slice(this.isDaily ? this.timeLine.length - 14 : 0)
+          .map((v) => {
+            return Number(
+              this.isDaily
+                ? this.getDailyOrTotalActiveCases(
+                    +v.dailyconfirmed,
+                    +v.dailyrecovered,
+                    +v.dailydeceased
+                  )
+                : this.getDailyOrTotalActiveCases(
+                    +v.totalconfirmed,
+                    +v.totalrecovered,
+                    +v.totaldeceased
+                  )
+            );
+          }),
+        color: 'blue',
+      },
+      {
+        type: this.graphType === 'line' ? 'line' : 'column',
         name: 'Death',
         data: this.timeLine
           .slice(this.isDaily ? this.timeLine.length - 14 : 0)
@@ -121,7 +147,7 @@ export class StatsComponent implements OnInit {
             return Number(this.isDaily ? v.dailydeceased : v.totaldeceased);
           }),
         color: 'red',
-      },
+      }
     ];
   }
 
@@ -168,19 +194,17 @@ export class StatsComponent implements OnInit {
       );
     }
 
-    this.predictionXRange.push(d.getDate()+monthNames[d.getMonth()])
+    this.predictionXRange.push(d.getDate() + monthNames[d.getMonth()]);
     for (let i = 0; i < 31; i++) {
       d.setDate(d.getDate() + 1);
-      this.predictionXRange.push(
-        d.getDate()+monthNames[d.getMonth()]
-        )
+      this.predictionXRange.push(d.getDate() + monthNames[d.getMonth()]);
     }
     this.predictionGraphSeriesOptions = [
       {
         type: this.graphType,
         data: data,
         name: 'Active Cases',
-      }
+      },
     ];
   }
 
@@ -195,6 +219,14 @@ export class StatsComponent implements OnInit {
   predict(lastUpdated: number, gf: number, futureDays: number) {
     const po = Math.pow(gf, futureDays);
     return Math.round(lastUpdated * po * 1) / 1;
+  }
+
+  getDailyOrTotalActiveCases(
+    confirmed: number,
+    recovered: number,
+    dead: number
+  ): number {
+    return confirmed - (recovered + dead);
   }
 
   onDailyChange(e) {

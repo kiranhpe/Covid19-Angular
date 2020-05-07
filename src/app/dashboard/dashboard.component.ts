@@ -69,6 +69,7 @@ export class DashboardComponent implements OnInit {
         this.isLoading = false;
       });
       this._covid.getDistrictData().subscribe((response) => {
+        this.isLoading = true;
         this.districts = response.find(
           (v) => v.state === this.stateName
         ).districtData;
