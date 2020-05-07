@@ -53,6 +53,11 @@ export class LineBarChartComponent implements OnInit, OnChanges {
               data: [],
               color: 'green',
             },
+            {
+              type: 'line',
+              data: [],
+              color: 'green',
+            },
           ],
     };
   }
