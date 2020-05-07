@@ -114,16 +114,6 @@ export class StatsComponent implements OnInit {
       },
       {
         type: this.graphType === 'line' ? 'line' : 'column',
-        name: 'Active',
-        data: this.timeLine
-          .slice(this.isDaily ? this.timeLine.length - 14 : 0)
-          .map((v) => {
-            return Number(this.isDaily ? v.dailyactive : v.totalactive);
-          }),
-        color: 'blue',
-      },
-      {
-        type: this.graphType === 'line' ? 'line' : 'column',
         name: 'Death',
         data: this.timeLine
           .slice(this.isDaily ? this.timeLine.length - 14 : 0)
