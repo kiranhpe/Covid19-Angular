@@ -52,7 +52,9 @@ export class LineBarChartOptions {
         enabled: false,
       },
     },
-    tooltip: {},
+    tooltip: {
+      shared: true
+    },
     series: [],
     credits: {
       enabled: false,
