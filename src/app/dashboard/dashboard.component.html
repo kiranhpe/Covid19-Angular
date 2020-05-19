@@ -15,7 +15,7 @@
                             <i class="fa fa-medkit" aria-hidden="true"></i>
                         </div>
                         <p class="card-category">Confirmed <br/> <b>{{getPercentage(covid?.confirmed, covid?.confirmed)}}%</b></p>
-                        <h3 class="card-title">{{covid?.confirmed | number:'':'en-IN'}}</h3>
+                        <h4 class="card-title">{{covid?.confirmed | number:'':'en-IN'}}</h4>
                         <h4 class="card-title text-danger"><i class="fa fa-caret-up" aria-hidden="true"></i>
                             {{covid?.deltaconfirmed}}</h4>
                     </div>
@@ -33,7 +33,7 @@
                             <i class="fa fa-stethoscope" aria-hidden="true"></i>
                         </div>
                         <p class="card-category">Active <br/> <b>{{getPercentage(covid?.confirmed, covid?.active)}}%</b></p>
-                        <h3 class="card-title">{{covid?.active | number:'':'en-IN'}}</h3>
+                        <h4 class="card-title">{{covid?.active | number:'':'en-IN'}}</h4>
                         <h4 class="card-title text-info"><i class="fa fa-info" aria-hidden="true"></i>0</h4>
                     </div>
                     <div class="card-footer">
@@ -50,7 +50,7 @@
                             <i class="fa fa-heartbeat" aria-hidden="true"></i>
                         </div>
                         <p class="card-category">Recovered  <br/><b>{{getPercentage(covid?.confirmed, covid?.recovered)}}%</b></p>
-                        <h3 class="card-title">{{covid?.recovered | number:'':'en-IN'}}</h3>
+                        <h4 class="card-title">{{covid?.recovered | number:'':'en-IN'}}</h4>
                         <h4 class="card-title text-success"><i class="fa fa-caret-up"
                                 aria-hidden="true"></i>{{covid?.deltarecovered}}</h4>
                     </div>
@@ -68,7 +68,7 @@
                             <i class="fa fa-heart-o" aria-hidden="true"></i>
                         </div>
                         <p class="card-category">Deaths  <br/> <b>{{getPercentage(covid?.confirmed, covid?.deaths)}}%</b></p>
-                        <h3 class="card-title">{{covid?.deaths | number:'':'en-IN'}}</h3>
+                        <h4 class="card-title">{{covid?.deaths | number:'':'en-IN'}}</h4>
                         <h4 class="card-title text-warning"><i class="fa fa-caret-up"
                                 aria-hidden="true"></i>{{covid?.deltadeaths}}</h4>
                     </div>
