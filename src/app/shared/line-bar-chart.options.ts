@@ -2,6 +2,9 @@ import * as Highcharts from 'highcharts';
 
 export class LineBarChartOptions {
   chartOptions: Highcharts.Options = {
+    navigator: {
+        enabled: true
+    },
     chart: {
       renderTo: 'container',
       backgroundColor: 'rgba(0,0,0,0)',
